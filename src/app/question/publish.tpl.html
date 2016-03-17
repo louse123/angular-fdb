@@ -1,0 +1,47 @@
+<div b-window-header title="发布问题">
+    <span class="b-icon-container-right" style="color: #ffffff;margin-right: 10px;font-size: 12px" ng-click="publish()">确认发布</span>
+</div>
+<div class="container question-publish">
+    <div class="block publish_area" ng-switch="questionData.content.length">
+        <div ng-switch-when="0" class="description1">描述你的问题<img src="img/question/02-m-16px.png"/></div>
+        <div ng-switch-default class="description2">描述你的问题<img src="img/question/02-m-16px.png"/></div>
+        <div class="questionArea" id="questionItems">
+            <div  ng-repeat="item in questionData.content" class="questionItem" ng-switch="item.type">
+                <div ng-switch-when="pic">
+                    <span style="padding:5px; width: 14em; height: 14em;"><img ng-src="{{item.content}}" width="160" /></span>
+                </div>
+                <div ng-switch-when="audio" class="audio">
+                    <img src="img/question_detail/audio.png" ng-click="playAudio(item.content)" />
+                </div>
+                <div ng-switch-when="video">
+                    <span class="question_img"><img src="img/question_detail/v1-M.png" ng-click="playVideo(item.content)" /></span>
+                </div>
+                <div  ng-switch-default>
+                    <span class="question_text" ng-bind-html="toHtml(item.content)"></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="questionData.content.length === 0" style="position: absolute;top:35%;left: 35%">
+            <img src="img/question/05.png" alt="" width="100px" height="100px"/><br>
+            <span style="margin-left: -12%;color:#bbbbbb ">开始发布你的问题吧！</span>
+        </div>
+    </div>
+
+    <div class="block choose-subject row">
+        <label>选 择 学 科</label>
+        <div class="select-div">
+            <select id="subject" ng-model="questionData.subject" ng-options="category for category in categories">
+            </select>
+            <span class="arrow"></span>
+        </div>
+    </div>
+
+    <div class="block reward row">
+        <span class="col-xs-4 text-center">悬 赏 一 下</span>
+        <span class="col-xs-3 text-right" ng-click="minusCoin()"><img src="img/question/03-m-16px.png" alt=""/></span>
+        <span class="col-xs-3 text-center"><input ng-model="questionData.coin"/></span>
+        <span class="col-xs-2" ng-click="addCoin()"><img src="img/question/04-m-17px.png" alt=""/></span>
+    </div>
+</div>
+
+<div b-chat-box b-chat-box-data-handler="pushChatData"></div>

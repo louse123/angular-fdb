@@ -1,0 +1,24 @@
+<div class="b-footer">
+    <a ng-class="{'b-footer-menu-selected': selectedMenu === 'question'}" href="#/question" class="b-footer-menu-item">
+        <div class="icon question"></div>
+        <div>悬赏</div>
+    </a>
+    <a ng-class="{'b-footer-menu-selected': selectedMenu === 'mission'}" href="#/mission" class="b-footer-menu-item">
+        <div class="icon mission"></div>
+        <div>任务</div>
+    </a>
+    <a class="b-footer-menu-item"
+       ng-dialog="question/publish.tpl.html"
+       ng-dialog-controller="PublishCtrl">
+        <div class="icon publish"></div>
+        <div>我要提问</div>
+    </a>
+    <a ng-class="{'b-footer-menu-selected': selectedMenu === 'message'}" href="#/message" class="b-footer-menu-item">
+        <div class="icon message"></div>
+        <div>消息</div>
+    </a>
+    <a ng-class="{'b-footer-menu-selected': selectedMenu === 'user'}" href="#/user" class="b-footer-menu-item">
+        <div class="icon user"></div>
+        <div>个人</div>
+    </a>
+</div>

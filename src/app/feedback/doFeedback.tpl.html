@@ -1,0 +1,33 @@
+<div  b-window-header="我要反馈" class="b-header">
+    <div style="float: right">
+        <label ng-click="feedBackSub()" ng-disabled="cansend" style="font-size:16px;">发送&nbsp;&nbsp;</label>
+    </div>
+</div>
+<div id="doFeedback" class="pad40">
+    <form name="myfeed">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+							<textarea style="width: 100%;" name="myfeedbackText"
+                                      ng-model="myFeedText" ng-change="limitMyFeed()"
+                                      placeholder="你好,请描述你遇到的问题..." class="textarea" rows="8"></textarea>
+                    <button ng-click="getfile(0);" type="button" class="col-xs-2 btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-picture"></span>
+                    </button>
+                    <input type="file" id="myfile" ng-show="false">
+                    <span class="clearfix pull-right col-xs-4 text-right">{{mynum}}-200字</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 clearleftrightpadding" ng-repeat="msrc in imgsrcList">
+                <img class="col-xs-12" ng-src="{{msrc.mUrl}}">
+
+                <div class="col-xs-12 text-center">
+                    <span ng-click="removeImg($index)" class="btn btn-danger glyphicon glyphicon-remove-sign"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <connect-wait ng-if="conWait"></connect-wait>
+</div>

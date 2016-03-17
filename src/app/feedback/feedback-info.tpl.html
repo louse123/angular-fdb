@@ -1,0 +1,32 @@
+<div  b-window-header="帮助与反馈" class="b-header">
+    <div style="float: right">
+        <label ng-click="openDialog('feedback/myFeedback.tpl.html','myFeedbackCtrl')" style="font-size:16px">我的反馈</label>
+    </div>
+</div>
+
+<div id="feedbackInfo" class="pad40">
+    <br/>
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <button ng-click="openDialog('feedback/doFeedback.tpl.html','doFeedbackCtrl')" type="button"
+                    class="headbgColor col-xs-12 btn btn-lg ">
+                <strong>我要反馈</strong>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-pencil"></span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <br>
+
+        <p class="text-muted question-title" style="padding-left: 15px;">
+            热门问题
+        </p>
+
+        <div class="list-group">
+            <a style="color: black;padding-top: 15px;padding-bottom: 15px;font-size: 100%;font-weight:bolder;font-family:'Noto Sans S Chinese DemiLight';"
+               ng-click="tomyhotquestion(x.num)" class="list-group-item" ng-repeat="x in questions">
+                <span style="color:#26d0f5;" class="glyphicon glyphicon-menu-right pull-right"></span>
+                {{x.name}}
+            </a>
+        </div>
+    </div>
+</div>

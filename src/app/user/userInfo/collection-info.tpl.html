@@ -1,0 +1,45 @@
+<div b-window-header="我的收藏"></div>
+<div class="question-collection" window-scroll style="margin-top:40px;height:100%;width: 98%;overflow:scroll; margin-left: 1%;">
+    <div  ng-repeat="item in collectList"  ng-click="openDialog('question/detail.tpl.html', 'detailCtrl', item.collect.question._id)" style="border: 1px solid #dededf;margin-top: 5px;padding:0 5px;border-radius: 5px;">
+        <p style="height: 15px"><span class="pull-right" style="font-size: 12px;color: #b9b9b9">{{item.collect.createTime}}</span></p>
+        <div ng-repeat="x in item.collect.question.content" ng-switch="x.type">
+            <p ng-switch-default>
+                <b style="font-size: 16px" ng-bind-html="toHtml(x.content)"></b>
+            </p>
+            <p ng-switch-when="pic">
+                <img ng-src="{{downLoadBaseURL + x.file.key}}-w200" width="100%" height="60px"/>
+            </p>
+            <p ng-switch-when="audio">
+                <img src="img/r-m.png" ng-click="playAudio(downLoadBaseURL+x.file.key)"/>
+            </p>
+            <p ng-switch-when="video">
+                <img src="img/v1-M.png" ng-click="playVideo(downLoadBaseURL+x.file.key)"/>
+            </p>
+        </div>
+        <div ng-if="item.collect.question.finishAnswer === 1">
+            <p><b style="color:#fe9614 ">回答：</b></p>
+            <div ng-switch="item.answer.content[0].type">
+                <p ng-switch-default>
+                    <b ng-bind-html="toHtml(item.answer.content[0].content)"></b>
+                </p>
+                <p ng-switch-when="pic">
+                    <img ng-src="{{downLoadBaseURL + item.answer.content[0].file.key}}-w200" width="100%" height="60px"/>
+                </p>
+                <p ng-switch-when="audio">
+                    <img src="img/r-m.png" ng-click="playAudio(downLoadBaseURL + item.answer.content[0].file.key)"/>
+                </p>
+                <p ng-switch-when="video">
+                    <img src="img/v1-M.png" ng-click="playVideo(downLoadBaseURL + item.answer.content[0].file.key)"/>
+                </p>
+                    <div><img src="img/myQuestionList/0-1.png" alt=""/> <span style="color: #a9a9a9;font-size: 10px">已解决</span></div>
+                </div>
+        </div>
+        <div ng-if="item.collect.question.finishAnswer === 0">
+            <div><img src="img/myQuestionList/0-3.png" alt=""/> <span style="color: #a9a9a9;font-size: 10px">未解决</span></div>
+        </div>
+    </div>
+    <div class="text-center" ng-show="!appendLength" style="width: 100%">
+        <img src="img/userInfo/noData.png" width="100%"/>
+    </div>
+</div>
+

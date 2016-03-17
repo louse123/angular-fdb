@@ -1,0 +1,129 @@
+<div  b-window-header="个人信息设置" class="b-header"></div>
+
+<div id="userPanel" class="jumbotron pad40" style="background-color:#eeecec; margin-bottom:0px">
+        <div class="row">
+            <div class="col-xs-4" align="center" style="padding:10% 0% ">
+                <img src="img/userInfo/xh-01.png" style="width: 50px; height: 50px">
+            </div>
+            <div class="col-xs-4 bigImg" align="center"
+                    style="background: url({{downLoadImgUrl?downLoadImgUrl:'img/xh-logo.png'}})no-repeat rgba(255,255,255,0.1);">
+                <img class="img-circle"  media-upload type="pic" width="120" height="120"
+                     src="{{downLoadImgUrl?downLoadImgUrl:'img/xh-logo.png'}}" style=" background-color:#FFF; width: 90px; height: 90px; margin: 10% auto">
+            </div>
+            <div class="col-xs-4" align="center" style="padding:10% 0% ">
+                <img src="img/userInfo/xh-02.png" style="width: 50px; height: 50px">
+            </div>
+        </div>
+        <h4 align="center">{{user.showName}}</h4>
+        <h5 align="center">{{user.class.grade}}
+            <img src="{{user.gender==1?'img/userInfo/xq-m-boy-.png':'img/userInfo/xq-m-grl-.png'}}">
+        </h5>
+        <div class="progress">
+            <div class=" progress-bar progress-bar-danger" style="width:60%"></div>
+        </div>
+        <h5 align="center" style="color: #b5b5b5">距离下个等级还需 <b style="color:#9b9c9c;font-size: 16px">1000</b> 成长积分哒！</h5>
+    </div>
+
+    <div id="userSetting">
+        <ul class=" list-group" style="margin-bottom: 0px">
+            <li  class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+                <b><img src="img/userInfo/03.png"> 昵称</b>
+                <label style="float:right;">
+                    <input style="border:0;" ng-model="user.nickname" type="text" placeholder="还没有帅气的昵称"/>
+                </label>
+            </li>
+            <li  class="list-group-item list-group-item-text"  style="border:1px solid #ebe9e9">
+                <b><img src="img/userInfo/m-b-day.png"> 生日</b>
+
+                <label style="float:right;margin-left: 2%">
+                    <img ng-click="changeGender(-1)" src="{{user.gender!=1?'img/userInfo/xq-m-grl-.png':'img/userInfo/xq-m-grl-gray.png'}}">女孩子
+                </label>
+                <label style="float:right;margin-left: 2%">
+                    <img ng-click="changeGender(1)" src="{{user.gender==1?'img/userInfo/xq-m-boy-.png':'img/userInfo/xq-m-boy-gray.png'}}">男孩子
+                </label>
+                <label style="float:right;">
+                    <img src="img/down.png" style="width: 16px; height: 16px">
+                </label>
+                <label style="float:right;">
+                    <mb-datepicker element-id='date1'
+                                   input-class="testClass"
+                                   input-name="testName"
+                                   arrows="arrows"
+                                   calendar-header="header"
+                                   date="user.birthday"
+                                   date-format="YYYY-MM-DD"></mb-datepicker>
+                </label>
+            </li>
+            <li  class="list-group-item list-group-item-text"  style="border:1px solid #ebe9e9">
+                <b><img src="img/userInfo/02.png"> 学校</b>
+                <label style="float:right;margin-left:4%">
+                    <img ng-click="selectSchool(0)" src="img/right.png" style="width: 16px; height: 16px">
+                </label>
+                <label style="float:right;">{{schoolName?schoolName:'未选择'}}</label>
+            </li>
+            <li  class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+                <b><img src="img/userInfo/04.png"> 班级</b>
+                <label style="float:right;margin-left:4%">
+                    <img ng-click="changeDialog()" src="img/down.png" style="width: 16px; height: 16px">
+                </label>
+                <label style="float:right;">{{user.class.name?user.class.name:'未选择'}}</label>
+            </li>
+            <li  class="list-group-item list-group-item-text" style="border-bottom:1px solid #ebe9e9">
+                <b><img src="img/userInfo/m-mail.png"> 邮箱</b>
+                <label style="float:right;">
+                    <input style="border:0" type="text" ng-model="user.email" placeholder="fudaobang@apusic.com"/>
+                </label>
+            </li>
+            <li  class="list-group-item list-group-item-text"  style="border:1px solid #ebe9e9">
+                <b><img src="img/userInfo/m-hi.png"> 自我介绍</b>
+                <label style="float:right;">
+                    <textarea class="description" ng-model="user.description" placeholder="暂无"></textarea>
+                </label>
+            </li>
+        </ul>
+
+        <div style="height: 9%" ng-show="user.weixinId!=null">
+            <div align="center">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="isphone" ng-change="toggle()">
+                        <b style="color:#58d8f2 ">启用手机登录</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="visible" class="bg-white wxSetting">
+            <form name="phoneLoginFrm" novalidate>
+            <ul class=" list-group" style="margin-bottom: 0px">
+                <li  class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+                    <b><img src="img/userInfo/phone.png"> 手机</b>
+                    <label style="float:right;">
+                        <input style="border:0;" ng-model="user.phone" type="text" placeholder="手机号为11位数字"  ng-minlength="11" ng-maxlength="11" required/>
+                    </label>
+                </li>
+                <li  class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+                    <b><img src="img/userInfo/pass.png"> 密码</b>
+                    <label style="float:right;">
+                        <input style="border:0;" ng-model="user.password" type="password" placeholder="密码长度在6到18位之间" ng-minlength="6" required/>
+                    </label>
+                </li>
+                <li class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+                    <b class="col-xs-3" ><img src="img/userInfo/Incode.png"> 验证码</b>
+                    <label class="col-xs-4" >
+                        <input ng-model="user.captcha"  style="border: none; height: auto;padding: 0px" type="text" class="form-control" name="validate"
+                               placeholder="请输入验证码" required ng-minlength="6" ng-maxlength="6"/>
+                    </label>
+                    <button class="col-xs-5" ng-click="validateNumber()" ng-disabled="time" class="col-xs-4"
+                            style="background-color:#FFF;color:#20d1f5;padding-right: 0;border: none;outline: none" >
+                        {{time?'重新发送验证码('+time+')':'点击获取验证码'}}
+                    </button>
+                </li>
+            </ul>
+            </form>
+        </div>
+
+        <div align="center" style=" margin-top: 10%;">
+            <button ng-click="updateUser()" ng-disabled="visible&&phoneLoginFrm.$invalid" type="button" class="btn btn-lg" style="width: 75%; background-color: #26d1f5; color: #FFF;">确认提交</button>
+        </div>
+    </div>

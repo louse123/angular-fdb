@@ -1,0 +1,594 @@
+@iscroll-wrapper-background-color: #777;
+@iscroll-scroller-background-color: #fff;
+//聊天气泡小三角
+//公共头部开始
+html{ font-family:"Microsoft Yahei"; height: 100%; width: 100%;}
+body { height: 100%; width: 100%;overflow:hidden;font-family:'Microsoft Yahei';}
+#f-header{position: fixed;  width: 100%;  height: 5%;  top: 0px; line-height:5%;}
+#f-container{margin-top:35px;height:88%;width:100%;overflow-y:auto;overflow-x: hidden}
+#f-footer{position: fixed;  width: 100%;  bottom: 0px;  height: 10%;  background-color: #FFFFFF;}
+
+#wHeader{position: fixed; width: 100%; height: 40px;top: 0px; line-height:40px;}
+#wContainer{height:88%;width:100%;overflow-y:auto;overflow-x: hidden}
+#wFooter{position: fixed;  width: 100%;  bottom: 0px;  height: 10%;  background-color: #FFFFFF;}
+
+.common-header{background-color: #26d1f5; width: 100%; height: 35px; line-height: 35px;}
+.common-header #title{font-size:20px;color: #FFF}
+.common-header #option{font-size:20px;color: #FFF}
+.common-header #back{padding-left: 10px;}
+.common-header #back .backImg{width:24px; height: 24px; margin-top: 3px}
+//公共头部结束
+
+.pad40{ padding-top: 40px}
+
+//对话框开始
+.ngdialog.b-window {  padding-bottom: 0;  padding-top:0px;overflow: hidden;
+  .ngdialog-content {  height: 100%;  width: auto;  padding:0px;  font-family:"Microsoft Yahei";  }
+}
+.ngdialog-overlay{background: rgba(0, 0, 0, 0.0)}
+//对话框结束
+
+//聊天气泡小三角开始
+.b-chat-tooltip-caret(@width,@top,@left,@t,@r,@d,@l){
+  position:absolute;
+  top:@top;
+  left: @left;
+  width:0;
+  height:0;
+  font-size:0;
+  border:solid @width;
+  border-color:@t @r @d @l;
+}
+//聊天气泡小三角结束
+
+
+//聊天气泡开始
+.b-chat-answer-apply(@bcgcolor,@fontcolor){
+  height: auto;
+  max-width: 80%;
+  min-height:35px;
+  background-color: @bcgcolor;
+  border-radius: 5px;
+  display: inline-block;
+  color: @fontcolor;
+}
+//聊天气泡结束
+
+*{
+  padding: 0;
+  margin: 0;
+}
+.iscroll-on {
+  .iscroll-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: @iscroll-wrapper-background-color;
+  }
+  .iscroll-scroller {
+    position: absolute;
+    width: 100%;
+    min-height: 100%;
+    background-color: @iscroll-scroller-background-color;
+  }
+}
+
+
+.b-header {  position: fixed;  top: 0;  left: 0;  z-index: 888;  width: 100%;  background-color: #31d4f5;  height: 40px;  line-height: 40px;  vertical-align: middle;  color: #FFFFFF;  font-weight: bold;  font-size: 20px;  padding-left: 10px;  text-align: center;
+  .b-icon-container-left {  position: absolute;  top: 0;  left: 10px;  }
+  .b-icon-container-right {  position: absolute;  top: 0;  right: 10px;  }
+}
+
+.b-footer {  background-color: #FFFFFF;  height: 65px;  border-top: 1px solid #C1C1C3;  position: fixed;  left: 0;  bottom: 0;  width: 100%;  z-index: 888;  font-size: 14px;
+  .b-footer-menu-item, .b-footer-menu-item:hover, .b-footer-menu-item:active {  float: left;  width: 20%;  text-align: center;  color: #2BB3ED;  vertical-align: bottom;  margin-top: 5px;  font-weight: bold;  display: block;  text-decoration: none;  cursor: pointer;
+    .icon {  background-image: url("img/footer-icon.png");  width: 32px;  height: 32px;  margin: 0 auto;  }
+    .question {  background-position: 0 0;  }
+    .mission {  background-position: 0 -32px;  }
+    .publish {  background-position: 0 -64px;  }
+    .message {  background-position: 0 -96px;  }
+    .user {  background-position: 0 -128px;  }
+  }
+
+  .b-footer-menu-selected, .b-footer-menu-selected:hover, .b-footer-menu-selected:active {
+    color: #FF6D17;
+    .question {  background-position: 32px 0;  }
+    .mission {  background-position: 32px -32px;  }
+    .publish {  background-position: 32px -64px;  }
+    .message {  background-position: 32px -96px;  }
+    .user {  background-position: 32px -128px;  }
+  }
+}
+
+.b-center {  position: absolute;  z-index: 1;  top: 40px;  bottom: 65px;  left: 0;  width: 100%;  background: #ccc;  overflow: auto;
+  .b-frm {  width: 100%;  height: 100%;  float: left;  display: none;  }
+  .b-frm-selected {  display: block;  }
+}
+
+
+.row,.form-contorl,.form-horizontal,.form-group{margin-left:0px;margin-right:0px}
+h1, .h1, h2, .h2, h3, .h3 ,h4,h5, .h4, .h5{  margin-top: 0px;  margin-bottom: 0px;  }
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;  min-height: 1px;  padding-right: 0px;  padding-left: 0px;
+}
+
+.list-group-item:first-child{ border-top-left-radius: 0px; border-top-right-radius: 0px;}
+.list-group-item:last-child { border-bottom-right-radius: 0px;  border-bottom-left-radius: 0px; }
+
+//登录页样式开始
+.login{background: url(img/bg-01.png);height:100%;padding-top:15%; position: absolute; top:0;}
+#loginFrm{margin:10% 9% 0 9%;}
+#loginFrm .user{border-radius:0px;background: url(img/xh-user.png) no-repeat left rgba(255,255,255,0.1);color:#FFF;border:0px; padding-left:14%}
+#loginFrm .pass{border-radius:0px;background: url(img/xh-pass.png) no-repeat left rgba(255,255,255,0.1);color:#FFF;border:0px; padding-left:14%}
+#loginFrm .input-group{margin-bottom:0.8%; width:100%;}
+#loginFrm .input-group input{ height:48px; font:#FFF}
+#loginFrm input::-webkit-input-placeholder{color: #FFF;}
+//登录页样式结束
+
+
+
+
+
+//注册页样式开始
+#regDiv{background: url(img/bg-01.png);height:100%;padding-top:15%;}
+#regForm{width:90%; margin: 7% auto 0 auto;}
+#regForm .regRow{
+  border-radius:0px;
+  background:no-repeat left rgba(255,255,255,0.2);
+  color:#FFF;
+  border:0px;
+}
+#regForm .regInput{
+  border-radius:0px;
+  background:no-repeat left rgba(255,255,255,0.0);
+  color:#FFF;
+  border:0px;
+}
+#regForm .regCaptach{
+  border-radius:0px;
+  background:no-repeat left rgba(255,255,255,0.2);
+  color:#FFF;
+  border:0px;
+}
+#regForm .regBtn{background-color:#1ccbf3;
+  border-color:#1ccbf3;border-radius:0px;
+  color:#FFF;
+  border:0px; }
+.input_size{height:40px;}
+.glyphicon-ok,.glyphicon-remove{
+  height:40px; padding-top:2px;
+}
+#regForm .row{margin-bottom:8px}
+#regForm input::-webkit-input-placeholder{color: #FFF;}
+//注册页样式结束
+
+//完善资料样式开始
+#userComplete{background-color:#eeecec;}
+#userComplete .header{background: url(img/bg-01.png);}
+#userComplete .bg-white{ background-color: #FFF}
+#userComplete input::-webkit-input-placeholder{  text-align: right;  color: #979797;  }
+#userComplete .form-control:focus{  box-shadow: none;  }
+#userComplete button:checked{  border: none;  }
+#userComplete label{  margin:0px;  padding: 6px 0px;  }
+#userComplete input{  border:0px;  }
+#userComplete .form-group{  margin-bottom:0px; }
+//完善资料样式结束
+
+//问题发布
+.question-publish-block{
+  background-color: #ffffff;
+  border-radius: 5px;
+  width: 94%;
+  margin-left: 3%;
+  position: relative;
+  border: 1px solid #d5d3d3;
+  span{
+    display: inline-block;
+    font-weight: bold
+  }
+}
+
+//问题详情
+.question-detail-answer-list{
+  margin-top: 20px;
+  ul{
+    height: 100%;
+    padding: 0;
+    li{
+      height: 32%;
+      border-radius: 5px;
+      border: 1px solid #cbc9c9;
+      list-style: none;
+      margin-top: 5px;
+      background-color: #ffffff;
+      position: relative;
+    }
+  }
+}
+
+//排行榜
+.answer-apply-tooltip-down {
+  .b-chat-tooltip-caret(6px, 103%, 40%, #fe7a04, transparent, transparent, transparent)
+}
+#userSetting input::-webkit-input-placeholder{
+  text-align: right;
+  color: #b1b1b1;
+}
+#userSetting textarea::-webkit-input-placeholder{
+  text-align: right;
+  color: #b1b1b1;
+  font-size: 12px;
+}
+.wxSetting input::-webkit-input-placeholder{
+  text-align: right;
+  color: #b1b1b1;
+}
+.wxSetting textarea::-webkit-input-placeholder{
+  text-align: right;
+  color: #b1b1b1;
+  font-size: 12px;
+}
+
+#userSetting .description{
+  height: 35px;
+  border: 0;
+  font-size:12px;
+  background:rgba(255,255,255,0.0);
+  margin-top: -5%;
+  padding-top: 7%;
+}
+#userSetting input,textarea{
+  outline:medium
+}
+//问题回复
+.answer-apply-question-user{
+  .b-chat-answer-apply(#ffffff, #000000);
+  box-shadow: -2px 2px 5px #CCC;
+}
+.answer-apply-answer-user{
+  .b-chat-answer-apply(#2bd2f4, #ffffff);
+  box-shadow: -2px 2px 5px #CCC;
+}
+.answer-apply-tooltip-left{
+  .b-chat-tooltip-caret(6px,25%,82%,transparent,#ffffff,transparent,transparent);
+}
+.answer-apply-tooltip-right {
+  .b-chat-tooltip-caret(6px,35%,0,transparent,transparent,transparent,#2bd2f4);
+}
+#userSetting .list-group-item{
+  padding:5px 15px;
+}
+#userPanel .bigImg
+{
+  border-radius: 50%;
+  background-color: #000;
+  height: 120px; width:120px;
+}
+#userPanel .progress{
+  height: 2px;
+  margin: 10px auto;
+  overflow: hidden;
+  background-color:#b5b5b5;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+}
+.answer-apply-tooltip-right {
+  .b-chat-tooltip-caret(6px,35%,0,transparent,transparent,transparent,#2bd2f4);
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  color: #FFF;
+}
+
+//日期控件
+.mb-datepicker{
+  margin-top: 0px;
+  width:auto;
+}
+.mb-datepicker .header-nav-wrapper,.header-year-wrapper{ text-align: center; padding: 0px;}
+.mb-datepicker table{
+  width:auto;
+}
+.mb-datepicker table tbody tr td{
+  padding:5px;
+}
+.mb-datepicker .header-month,.header-year{
+  width:auto;
+}
+.mb-input-field {
+  border-radius: 0;
+  border: 0px ;
+  width: 100px;
+  color: #26d1f5;
+}
+//日期控件
+
+#myUserInfo .list-group-item{padding: 6px 15px;}
+
+
+//missionCSS
+.taksList_BigtitleBGC {
+  background-color: #f7f7f8;
+  margin-bottom: 10px;
+}
+.taksList_BigtitleBGC h4 {
+  height: 100%;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #ff7c0e;
+}
+.taksList_borBot {
+  border-bottom: 1px solid #b0afb0;
+  padding-bottom: 6px;
+}
+.taskList_paddingLR {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.taskList_clearpaddingLR {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.taksList_marginTop10px {
+  margin-top: 10px;
+}
+.taskList_clearpaddingLR div {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.taskList_lineheight {
+  height: 48px;
+  line-height: 48px;
+}
+.taskList_fontSize115 {
+  font-size: 115%;
+  font-weight: bold;
+  color: #3b3b3b;
+}
+.taskList_lingheight {
+  height: 35px;
+  line-height: 35px;
+}
+.taskList_fontColorAward {
+  color: #ff7c0e;
+}
+.taskList_fontColorAward span {
+  color: #ff7c0e;
+}
+.taskList_contentBGC {
+  padding-bottom: 5px;
+  padding-top: 15px;
+  border-radius: 10px;
+}
+.taskList_paddingTop15{
+  padding-top: 15px;
+}
+.taskList_btnhight div {
+  height: 35px;
+  font-size: 120%;
+  line-height: 35px;
+}
+.taskList_symbolSize {
+  font-size: 100%;
+}
+.taskList_triangle {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 10px solid #f0f0f1;
+}
+.taskList_triangletop {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #ff7c0e;
+  margin-bottom: -12px;
+}
+.taskList_getBtn {
+  color: white;
+  background-color: #ff7c0e;
+  overflow: hidden;
+  height: auto;
+  height: 35px;
+  line-height: 35px;
+}
+.taskList_getBtn1 {
+  color: #ff7c0e;
+  font-weight: bold;
+  overflow: hidden;
+  height: auto;
+}
+.taskList_getBtn2 {
+  color: #ff7c0e;
+  font-weight: bold;
+  overflow: hidden;
+  height: auto;
+  border: 3px solid #ff7c0e;
+  line-height: 35px;
+  height: 40px;
+}
+.taskList_displaynone {
+  display: none;
+}
+
+
+
+.font2size {
+  font-size:180%;
+}
+.necessary-bgcolor-white {
+  background-color:white;
+}
+.contentset {
+  background-color:white;
+}
+.topMargin{
+  margin-top:60px;
+  margin-bottom: 60px;
+}
+.mustTop{
+  position: fixed;
+}
+.contentset span {
+  margin-top:10px;
+  font-size:90%;
+  margin-top:0px;
+  color:#959595;
+}
+.bottomsolidccc {
+  border-bottom:2px solid #CCCCCC;
+}
+.headbgColor {
+  background-color:#30d2f5;
+  color:white;
+  padding-top:10px;
+}
+.headbgColor a {
+  font-size:120%;
+}
+.claarbuttompadding {
+  padding:0px;
+}
+.clearleftrightpadding {
+  padding-left:0px;
+  padding-right:0px;
+}
+.onhidden {
+  /*overflow: hidden;*/
+}
+.spanchoseline {
+  white-space:pre-wrap;
+}
+.marginTop15 {
+  margin-top:15px;
+}
+.myimg0 {
+  position:absolute;
+  width:30%;
+  top:40%;
+  left:33%;
+}
+.myimg1 {
+  width:100%;
+}
+.headimg {
+  border-radius:50%;
+  width:48px;
+  height:48px;
+}
+.infoContentShadow {
+  box-shadow:0px 0px 5px 0px #ccc;
+  border-radius:5%;
+}
+.setpaddingTopAndBottom {
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.setMarginTop {
+  margin-top:20px;
+}
+.Timeimg {
+  background-color:#f7ab13;
+  color:white;
+  padding:0px;
+  border-radius:50%;
+}
+.imgRadius {
+  border-radius:10%;
+}
+.usuallyimgRight {
+  color:#32d3f6;
+  padding-top:10px;
+  font-size:120%;
+}
+//我的金库
+.coffers-btnActive {
+  display: block;
+  color: #646464;
+  background-color: white;
+}
+
+.coffers-btnInActive {
+  display: block;
+  color: white;
+  background-color: #31d3f5;
+}
+
+.coffers-borderRadius-L {
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.coffers-borderRadius-R {
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.coffers-topPaddingTitle50 {
+  padding-top: 50px;
+}
+
+.coffers-titleBorder {
+  border: 1px solid #dadada;
+}
+
+.coffers-fontsize110 {
+  font-size: 108%;
+  font-weight: 600;
+  color: #646464;
+}
+
+.coffers-bottomButton {
+  position: absolute;
+  bottom: 0px;
+  height: 7%;
+  width: 100%;
+}
+.drawmoney-btnActive{
+  background-color: #29d1f5;
+  font-size: 200%;
+  color: white;
+}
+.drawmoney-btnInActive{
+  background-color: #cccccc;
+  font-size: 200%;
+  color: #3b3b3b;
+}
+.drawmoney-setPWD div{
+  margin-top: 10px;
+}
+.drawmoney-btnNext{
+  width: 50px;
+  height: 50px;
+  color : white;
+  line-height: 50px;
+  border-radius: 50%;
+}
+.drawmoney-btnNext1{
+  background-color: #686868;
+}
+.drawmoney-btnNext2{
+  background-color: #29d1f5;
+}
+.drawmoney-Keyboard{
+  border: 1px solid #C7C7C7;
+  font-size: 130%;
+  font-weight: bold;
+  background-color: white;
+  color: black;
+  padding: 10px 0px 10px 0px;
+}
+.createschool-homeActive{
+  color: rgba(255, 255, 255, 1);
+}
+.createschool-homeInActive{
+  color: rgba(255, 255, 255, 0.5);
+}
+.feedback-talkTransitionImg{
+  transition:width 0.75s, height 0.75s;
+  -moz-transition:width 0.75s, height 0.75s, -moz-transform 0.75s; /* Firefox 4 */
+  -webkit-transition:width 0.75s, height 0.75s, -webkit-transform 0.75s; /* Safari and Chrome */
+  -o-transition:width 0.75s, height 0.75s, -o-transform 0.75s; /* Opera */
+}

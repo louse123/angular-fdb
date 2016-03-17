@@ -1,0 +1,1 @@
+angular.module('app.school', ['province', 'city', 'area', 'school']);

@@ -1,0 +1,78 @@
+<div style="margin-bottom:0px; height: 200px;">
+    <img src="img/userInfo/08.png" style=" z-index:-999;width: 100%; height: 100%;">
+
+    <div style="position: fixed;z-index: 999;top: 17%;left: 37%;">
+        <b>{{user.nickname}}</b>
+    </div>
+    <div style="position: fixed;z-index: 999;top: 20%;left: 37%;">
+        {{user.school.name}} {{user.class.grade}}
+        <img src="{{user.gender?'img/userInfo/xq-m-boy-.png':'img/userInfo/xq-m-grl-.png'}}">
+    </div>
+    <div style="position: fixed;z-index: 999;top: 24%;left: 35%;">
+        <img src="img/userInfo/m-01.png">
+        <img src="img/userInfo/m-02.png">
+        <img src="img/userInfo/m-01.png">
+        <img src="img/userInfo/m-01.png">
+        <img src="img/userInfo/m-02.png">
+    </div>
+    <img src="{{headImg}}" class="img-circle"
+         style="width: 85px; height: 85px; position: fixed; z-index: 999;top: 24%;left: 5%;"/>
+
+    <div style=" padding-top: 1%; position: fixed;z-index: 999;background: rgba(255,255,255,0.3);top: 32%;width: 100%;height: 7%;">
+        <div style="display: inline;padding-left: 35%;">
+            <label style="font-size:16px;font-weight: bold">{{user.statistic.acceptPercent}}%</label>
+        </div>
+        <img src="img/userInfo/gogo.png" style="width: 16px; height: 16px">
+
+        <div style="display: inline;padding-left: 20%;">
+            <label style="font-size:16px;font-weight: bold">{{user.statistic.integral}}</label>
+        </div>
+        <img src="img/userInfo/gogo.png" style="width: 16px; height: 16px">
+    </div>
+    <div style="position: fixed;z-index:999;top: 35%;width:100%;">
+        <div style="display: inline; padding-left: 35%"><b>采纳率</b></div>
+        <div ng-click="openDialog('shopping/shopping-info.tpl.html','shoppingInfoCtr');" style="display: inline; padding-left: 20%"><b>积&nbsp;&nbsp;分</b></div>
+    </div>
+</div>
+<div id="myUserInfo">
+    <ul class=" list-group" style="margin-bottom: 0px">
+        <li ng-click="openDialog('user/userInfo/questionList-info.tpl.html','myQuestionCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/01.png"> 我的提问</b>
+            <b style="float:right;color:#12ccf4;">{{user.statistic.questionNum}}个问题</b>
+        </li>
+        <li ng-click="openDialog('user/userInfo/answerList-info.tpl.html','myAnswerCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/02.png"> 我的回答</b>
+            <b style="float:right;color:#12ccf4; ">{{user.statistic.acceptPercent}}%采纳率</b>
+        </li>
+        <li ng-click="openDialog('user/userInfo/collection-info.tpl.html','myCollectionCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/03.png"> 我的收藏</b>
+            <b style="float:right;color:#12ccf4; ">{{user.statistic.storageNum}}个收藏</b>
+        </li>
+        <li ng-click="openDialog('user/userInfo/class-info.tpl.html','myClassCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/04.png"> 我的班级</b>
+            <b style="float:right;color:#12ccf4;">{{personInfo.classNum}}位同学</b>
+        </li>
+        <li ng-click="openDialog('user/consume.tpl.html','consumeController');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/05.png"> 充&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值</b>
+            <b style="float:right;color:#ff7413">现在充值，9折优惠哟！</b>
+        </li>
+        <li ng-click="openDialog('coffers/coffers-info.tpl.html','myGoldCtrl');"
+            class="list-group-item list-group-item-text" style="border-bottom:1px solid #ebe9e9">
+            <b><img src="img/userInfo/06.png"> 我的金库</b>
+            <b style="float:right;color:#12ccf4;">{{user.statistic.gold}}个金币</b>
+        </li>
+        <li ng-click="openDialog('user/settings.tpl.html','settingsController');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/07.png"> 设置</b>
+        </li>
+        <li ng-click="openDialog('feedback/feedback-info.tpl.html','feedbackInfoCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/07.png"> 帮助和反馈</b>
+        </li>
+    </ul>
+</div>

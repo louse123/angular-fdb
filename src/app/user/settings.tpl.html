@@ -1,0 +1,29 @@
+<div b-window-header="个人设置" class="b-header"></div>
+
+<div class="pad40">
+    <ul class="list-group">
+        <li ng-click="openDialog('setting/user-setting.tpl.html','UserSettingController');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/01.png"> 个人消息设置</b>
+        </li>
+        <li ng-click="openDialog('setting/message-setting.tpl.html','messageSettingCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/02.png"> 消息设置</b>
+        </li>
+        <li ng-click="openDialog('setting/about.tpl.html','aboutCtrl');" class="list-group-item list-group-item-text"
+            style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/03.png"> 关于辅导帮</b>
+        </li>
+        <li ng-click="openDialog('setting/changePhone.tpl.html','changePhoneCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/04.png"> 更换手机</b>
+        </li>
+        <li ng-click="openDialog('setting/changePwd.tpl.html','changePwdCtrl');"
+            class="list-group-item list-group-item-text" style="border:1px solid #ebe9e9">
+            <b><img src="img/userInfo/05.png"> 更改密码</b>
+        </li>
+        <li ng-click="loginOut()" class="list-group-item list-group-item-text" style="border-bottom:1px solid #ebe9e9">
+            <b><img src="img/userInfo/06.png"> 退出此账号</b>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,158 @@
+
+    <div class="b-header">
+        <span>辅导帮</span>
+    </div>
+    <div>
+        <div style="height: 32px;width: 96%;background-color: #ffffff;margin:45px 0 5px 2%;border-radius:16px">
+            <div style="width: 50%;height: 100%;float: left;border-radius:16px 0 0 16px;text-align: center">
+                <span style="line-height: 32px;font-size: 16px;color: #747474">任&nbsp;&nbsp;务</span>
+                <img style="margin-top: -5px" src="img/ranklist/0-8.png" alt="img"/>
+            </div>
+            <div style="width: 50%;background-color:#2bd2f4;height: 100%;float: left;border-radius:0  16px 16px 0;text-align: center ">
+                <span style="line-height: 32px;font-size: 16px;color: #ffffff">榜&nbsp;&nbsp;单</span>
+                <img style="margin-top: -5px" src="img/ranklist/0-11.png" alt="img"/>
+            </div>
+        </div>
+        <div  class="">
+            <div style="height:30px;background-color: #f6f6f6;width: 98%;margin-left: 1%">
+                <div class="col-xs-6 text-center" style="line-height: 30px" ng-click="change(-1)">
+                    <span style="color: #747474;display: block;width: 40%;margin-left: 30%;border-bottom:3px solid #fe7a04;position: relative">土豪榜
+                        <div class=" answer-apply-tooltip-down"></div>
+                    </span>
+                </div>
+                <div class="col-xs-6 text-center" style="line-height: 30px;color: #747474;" ng-click="change(1)">学霸榜</div>
+            </div>
+            <div id="richRank" ng-show="type == -1">
+                <div ng-if="richRankList1.length">
+                    <div style="height:155px;background-color: #ffffff;width: 100%;margin-top: 3px">
+                        <div class="col-xs-4 text-center">
+                            <img style="margin-top: 25%" ng-src="{{richRankList1[1].headPic}}" alt="" class="img-circle" width="70" height="70"/><br/>
+                            <span>{{richRankList1[1].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{richRankList1[1].amount}}</span>
+                        </div>
+                        <div class="col-xs-4 text-center" style="background: url(img/ranklist/0-1.png)no-repeat 65% 4px">
+                            <img style="margin-top: 18%" ng-src="{{richRankList1[0].headPic}}" alt="" class="img-circle" width="90" height="90"/><br/>
+                            <span style="font-weight: bold">{{richRankList1[0].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #da1213;font-weight: bold">{{richRankList1[0].amount}}</span>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <img style="margin-top: 25%" ng-src="{{richRankList1[2].headPic}}" alt="" class="img-circle" width="70" height="70"/><br/>
+                            <span>{{richRankList1[2].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{richRankList1[2].amount}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rank-list-view" style="color:#f3f3f3;margin-top: 2px">
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                            <div style="margin: 10px 0 0 8%">
+                                <img src="img/question_deital/kobe.png" alt="" width="30" height="30" class="img-circle"/>
+                                <span style="color:#5f5f5f">我的排名 </span>&nbsp;<span style="font-weight: 900;color:#34c2fb">NO.{{myRichRank.index}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <div style="margin: 7% 0 0 10%">
+                                <span style="color:#5f5f5f;font-size: 12px">我的金币</span>
+                                <span style="color:#f6a50d;font-size: 12px;font-weight: bold">{{myRichRank.amount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="richRankList2.length">
+                        <div style="margin: 8px 0 5px 5%;width: 90%;height: 40px" ng-repeat="rich in richRankList2">
+                            <div style="float:left;background-color: #ee8d3d;border-radius: 15px 0 0 15px;height: 100%;font-size: 18px;font-weight: bold;width: 10%;text-align: center;line-height: 40px">{{rich.index}}</div>
+                            <div style="float:left;background-color: #ffffff;width: 87%;height: 100%;border-radius: 0 15px 15px 0;">
+                                <div style="margin-left: 5px;height: 100%">
+                                    <div class=" pull-left">
+                                        <img style="margin-top: 5px" ng-src="{{rich.headPic}}" alt="" width="30" height="30" class="img-circle"/>
+                                    </div>
+                                    <div class="pull-left" style="margin: 5px 0 0 5px">
+                                        <span style="color: #34c2fb;font-size: 12px;font-weight: bold">{{rich.user.nickname}}</span><br/>
+                                        <span style="color:#ee8d3d;font-size: 10px ;">{{rich.honor}}</span>
+                                    </div>
+                                    <div class="pull-right" style="height: 100%;margin:5px 10% 0 0">
+                                        <span style="color:#f7a005;font-size: 12px;font-weight: bold ">{{rich.amount}}</span><br/>
+                                        <span style="font-size: 10px;color: #9c9c9c">贡献金币</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div id="inRank" ng-show="type == 1">
+                <div ng-if="inRankList1.length > 2">
+                    <div style="height:155px;background-color: #ffffff;width: 100%;margin-top: 3px">
+                        <div class="col-xs-4 text-center">
+                            <img style="margin-top: 25%" ng-src="{{inRankList1[1].headPic}}" alt="" class="img-circle" width="70" height="70"/><br/>
+                            <span>{{inRankList1[1].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{inRankList1[1].amount}}</span>
+                        </div>
+                        <div class="col-xs-4 text-center" style="background: url(img/ranklist/0-1.png)no-repeat 65% 4px">
+                            <img style="margin-top: 18%" ng-src="{{inRankList1[0].headPic}}" alt="" class="img-circle" width="90" height="90"/><br/>
+                            <span style="font-weight: bold">{{inRankList1[0].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #da1213;font-weight: bold">{{inRankList1[0].amount}}</span>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <img style="margin-top: 25%" ng-src="{{inRankList1[2].headPic}}" alt="" class="img-circle" width="70" height="70"/><br/>
+                            <span>{{inRankList1[2].user.nickname}}</span><br/>
+                            <img src="img/ranklist/0-6.png" alt="img"/>
+                            <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{inRankList1[2].amount}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rank-list-view" style="color:#f3f3f3;margin-top: 2px">
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                            <div style="margin: 10px 0 0 8%">
+                                <img src="img/question_deital/kobe.png" alt="" width="30" height="30" class="img-circle"/>
+                                <span style="color:#5f5f5f">我的排名 </span>&nbsp;<span style="font-weight: 900;color:#34c2fb">NO.{{myInRank.index}}</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <div style="margin: 7% 0 0 10%">
+                                <span style="color:#5f5f5f;font-size: 12px">我的金币</span>
+                                <span style="color:#f6a50d;font-size: 12px;font-weight: bold">{{myInRank.amount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="inRankList2.length">
+                        <div style="margin: 8px 0 5px 5%;width: 90%;height: 40px" ng-repeat="income in inRankList2">
+                            <div style="float:left;background-color: #ee8d3d;border-radius: 15px 0 0 15px;height: 100%;font-size: 18px;font-weight: bold;width: 10%;text-align: center;line-height: 40px">{{income.index}}</div>
+                            <div style="float:left;background-color: #ffffff;width: 87%;height: 100%;border-radius: 0 15px 15px 0;">
+                                <div style="margin-left: 5px;height: 100%">
+                                    <div class=" pull-left">
+                                        <img style="margin-top: 5px" ng-src="{{income.headPic}}" alt="" width="30" height="30" class="img-circle"/>
+                                    </div>
+                                    <div class="pull-left" style="margin: 5px 0 0 5px">
+                                        <span style="color: #34c2fb;font-size: 12px;font-weight: bold">{{income.user.nickname}}</span><br/>
+                                        <span style="color:#ee8d3d;font-size: 10px ;">{{income.honor}}</span>
+                                    </div>
+                                    <div class="pull-right" style="height: 100%;margin:5px 10% 0 0">
+                                        <span style="color:#f7a005;font-size: 12px;font-weight: bold ">{{income.amount}}</span><br/>
+                                        <span style="font-size: 10px;color: #9c9c9c">赚取金币</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+<!--</body>-->
+<!--</html>-->

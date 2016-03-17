@@ -1,0 +1,136 @@
+<div b-window-header="积分商城" class="b-header">
+</div>
+<div class="row taskList-clearpaddingLR coffers-topPaddingTitle50" style="background-color: #f4f4f4;height: 50%;">
+    <div class="col-xs-12 center-block text-center" style="padding: 30px 0px 15px 0px;">
+        <img ng-src="{{userImgUrl}}" style="width: 80px;height: 80px;border-radius: 50%;">
+    </div>
+    <div class="col-xs-12 center-block text-center" style="font-size: 120%;font-weight: bold;">{{username}}
+    </div>
+    <div class="col-xs-10 col-xs-offset-1" style="font-size: 90%;color: #cccccc;">
+        <span style="color: #31d3f5;">X1.2倍加速中</span><span style="color: red">{{mynowExp }}</span>/{{myleveExp}}
+    </div>
+    <div class="col-xs-10 col-xs-offset-1">
+        <div style="width: 99%;overflow: scroll;height: 50px;border: 1px solid red">
+            <div style="overflow-y: hidden;overflow-x: auto;width:800px;height: 40px;z-index: 99;"
+                 id="shopping-width-div">
+                <img style="float: left;position: relative;width: 20px;height: 20px;" src="img/shopping/new-m.png">
+
+                <div>
+                    <div style="width:92px;height: 41px;overflow-x: visible;overflow-y: hidden;float: left;position: relative;"
+                         ng-switch="leve.expChoose" ng-repeat="leve in levelList">
+                        <!-- ngswitch  0是 当前未满 1是当前充足 其他中间段的 -->
+                        <div style="float: left;width: 80px;position: relative;height: 15px;" ng-switch-when="0">
+                            <div class="progress" style="height: 2px;margin-top: 8px;">
+                                <div class="progress-bar progress-bar-danger"
+                                     style="width: 0;background-color: red">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="0"
+                             style="margin-top: 4px;float: left;position: relative;width: 12px;height: 12px;border-radius: 50%;background-color: #C1C1C3"></div>
+
+                        <div style="float: left;width: 80px;position: relative;height: 15px;" ng-switch-when="1">
+                            <div class="progress" style="height: 2px;margin-top: 8px;">
+                                <div class="progress-bar progress-bar-danger"
+                                     style="width: 100%;background-color: red">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-when="1"
+                             style="margin-top: 4px;float: left;position: relative;width: 12px;height: 12px;border-radius: 50%;background-color: red"></div>
+
+                        <div style="float: left;width: 80px;position: relative;height: 15px;" ng-switch-default>
+                            <div class="progress" style="height: 2px;margin-top: 8px;">
+                                <div id="selectExp" class="progress-bar progress-bar-danger"
+                                     style="{{leve.nowExp}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-switch-default
+                             style="margin-top: 4px;float: left;position: relative;width: 12px;height: 12px;border-radius: 50%;background-color: #C1C1C3"></div>
+                        <span ng-if="$index==0&&leve.expChoose==0">新同学</span>
+                        <span ng-if="$index!=0&&leve.expChoose==0">{{$index*50*2}}</span>
+                        <span ng-if="$index==0&&leve.expChoose==1" style="color: red">新同学</span>
+                        <span ng-if="$index!=0&&leve.expChoose==1" style="color: red">{{$index*50*2}}</span>
+                        <span ng-if="$index==0&&leve.expChoose!=1&&leve.expChoose!=0" style="color: red">新同学</span>
+                        <span ng-if="$index!=0&&leve.expChoose!=1&&leve.expChoose!=0"
+                              style="color: red">{{$index*50*2}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 text-center" style="font-size: 85%;padding: 10px;">升级xx即可1.5倍加速获取积分 <span
+            style="color:#16cbf3 ">查看等级说明</span></div>
+</div>
+<div class="col-xs-12" style="background: url('img/shopping/shopping-xh.png');height: 10px;"></div>
+<div class="col-xs-12" style="height: 50%;background-color: #16cbf3;padding-bottom: 10px;">
+    <div class="col-xs-12" style="margin-top: 5%;height: 95%;background-color: #16cbf3">
+        <div id="shoppingCardTitle" class="col-xs-12 center-block text-center" style="{{shoppingStyle}}"
+             ng-click="shoppingDown()">
+            <img src="img/shopping/shopping-down.png" style="padding: 5px;width: 36px;">
+        </div>
+        <div class="col-xs-12"
+             style="background-color:white;height: 90%;overflow-y: auto;display: block;margin-top: 10%"
+             id="shoppingCardContent">
+            <div ng-click="cardClick('{{$index}}')" class="col-xs-6" style="display: block;padding: 10px 0px 10px 0px;overflow: hidden" ng-repeat="cardL in cardlist">
+                <div class="col-xs-12" ng-if="$index%2==0" style="border-right: 2px dashed #cccccc">
+                    <img class="col-xs-10 col-xs-offset-1" src="img/shopping/cardText.png">
+                </div>
+                <div class="col-xs-12" ng-if="$index%2!=0">
+                    <img class="col-xs-10 col-xs-offset-1" src="img/shopping/cardText.png">
+                </div>
+                <div class="col-xs-10 col-xs-offset-1 text-center">
+                    <span style="color: #16cbf3">这里是卡片的名称</span>
+                    <br>
+                    <span style="font-size: 90%;">这里是描述</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-11 " id="shoppingCardList"
+             style="background-color:#31d3f5;height: 100%;overflow-y: auto;display: none;padding-bottom: 10%;margin: 15px;">
+            <div id="cardInfo{{$index}}" class="col-xs-12" style="padding: 10px;background-color: white;margin-bottom: 15px;" ng-repeat="cardL in cardlist">
+                <div class="col-xs-7" style="border-right: 2px dashed #cccccc">
+                    <img class="col-xs-10 col-xs-offset-1" src="img/shopping/cardText.png">
+
+                    <div class="col-xs-10 col-xs-offset-1 text-center">
+                        <span style="color: #31d3f5;">
+                            这里是名称-简单描述
+                        </span><br>
+                        <span style="font-size: 90%">
+                            这里是备注消息
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-5 text-left" style="color:#737373;font-size: 100%;font-weight: bold;">
+                    <div class="col-xs-10 col-xs-offset-1">
+                    <span class="col-xs-12">
+                        兑换条件:<br>
+                        兑换条件兑换条件<br>
+                    </span>
+                        <span class="col-xs-6" style="color: #ff840c;font-size: 130%;">$$$$</span>
+
+                        <div class="col-xs-6" style="width: auto;font-size: 75%;line-height: 0px;height: 0px;border-top: 10px solid #31d3f5;
+                                border-bottom: 10px solid #31d3f5;border-left: 10px solid #31d3f5;border-right: 10px solid transparent;color:white;font-weight: bold;">
+                            限时
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-top: 10px;line-height: 1.2">
+                    <div class="col-xs-3 col-xs-offset-1">
+                        功能介绍:
+                    </div>
+                    <div class="col-xs-8" style="line-height: 1.2">
+                        这里是功能介绍,这里是功能介绍,这里是功能介绍,这里是功能介绍
+                        <span style="color: #cccccc;font-size: 90%;">(解释权归辅导帮所有)</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 center-block"style="margin-top: 15px;">
+                    <div class="col-xs-8 text-center col-xs-offset-2" style="overflow: hidden;background-color: #ff840c;padding: 8px;color: white;font-weight: bold">
+                        立 刻 兑 换
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

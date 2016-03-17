@@ -1,0 +1,184 @@
+<div b-window-header="完善资料" class="b-header">
+    <div style="float: right">
+        <label ng-click="skip()" style="font-size:16px">跳过</label>
+    </div>
+</div>
+
+<div id="userComplete" class="pad40">
+    <form ng-show="loginType=='wx'" class="form-horizontal" style="height: 80%" novalidate>
+        <div class="form-group" style="background-color:#efeded;height:25%;margin-right:0px;margin-left: 0px">
+            <div class="col-xs-3" style="margin: 15% auto;font-size: 14px" align="center">头像</div>
+            <div class="col-xs-6" align="center" media-upload type="pic" width="120" height="120">
+                <img src="{{downLoadImgUrl?downLoadImgUrl:'img/xh-logo.png'}}" class="img-circle"
+                     style="width: 100px;height: 100px;margin-top:5%" alt=""/>
+            </div>
+            <div class="col-xs-3" align="center">
+                <img src="img/userInfo/rig.png" media-upload type="pic" width="120" height="120"
+                     style="margin: 57% auto;width: 32px;height: 32px" alt=""/>
+            </div>
+
+        </div>
+        <div class="bg-white">
+            <div class="form-group" style="margin-right: 0px; margin-left: 0px; border-bottom: 1px solid #cccccc">
+                <label for="nichenInput" class="control-label col-xs-3 text-center">
+                    <img src="img/userInfo/user-name.png" alt=""/> 昵称
+                </label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="nichen" ng-model="nickName" class="form-control"
+                           id="nichenInput" placeholder="还没有帅气的昵称" style="padding: 6px 18px 6px 0px;" required/>
+                </div>
+            </div>
+            <div class="form-group input_icon"
+                 style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc">
+                <label class="control-label col-xs-3 text-center" for="classInput">
+                    <img src="img/userInfo/school.png" alt=""/> 学校
+                </label>
+
+                <div ng-click="selectSchool(0)" class="col-xs-8" style="padding: 6px;color: #999; text-align: right;">
+                    {{user.school?user.school:'未选择'}}
+                </div>
+                <a ng-click="selectSchool(0)" class="col-xs-1" style="padding: 0;margin-top: 6px">
+                    <img src="img/userInfo/rig.png" alt=""/>
+                </a>
+            </div>
+            <div class="form-group input_icon"
+                 style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc">
+                <label class="control-label col-xs-3 text-center" for="classInput">
+                    <img src="img/userInfo/class.png" alt=""/> 班级
+                </label>
+
+                <div ng-click="changeDialog()" class="col-xs-8" style="padding: 6px;color: #999; text-align: right;">
+                    {{user.class?user.class:'未选择'}}
+                </div>
+                <a ng-click="changeDialog()" class="col-xs-1" style="padding: 0;margin-top: 6px">
+                    <img ng-src="{{hide?'img/userInfo/rig.png':'img/userInfo/dow.png'}}" alt=""/>
+                </a>
+            </div>
+        </div>
+
+        <div style="height: 9%" ng-show="loginType">
+            <div align="center">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="isphone" ng-change="toggle()"> <b
+                            style="color:#58d8f2 ">启用手机登录</b>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="visible" class="bg-white">
+            <form  name="dataForm"  novalidate>
+            <div class="form-group" style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc"
+                 ng-class="{'has-error':dataForm.phoneNum.$dirty&&dataForm.phoneNum.$invalid}">
+                <label for="phoneInput" class="control-label col-xs-3 text-center"><img src="img/userInfo/phone.png"
+                                                                                        alt=""/> 手机</label>
+
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" name="phoneNum" ng-model="phoneNum" id="phoneInput"
+                           placeholder="未填写" required pattern="^1{1}\d{10}$" style="padding-right: 20px"/>
+                    <samll class="help-block" ng-show="dataForm.phoneNum.$error.pattern">
+                        手机号为11位数字
+                    </samll>
+                </div>
+            </div>
+            <div class="form-group" style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc"
+                 ng-class="{'has-error':dataForm.password.$dirty&&dataForm.password.$invalid}">
+                <label for="pwdInput" class="control-label col-xs-3 text-center">
+                    <img src="img/userInfo/pass.png" alt=""/> 密码
+                </label>
+                <div class="col-xs-9">
+                    <input type="password" ng-model="password" name="password" class="form-control" id="pwdInput"
+                           style="padding-right: 20px" ng-minlength="6" ng-maxlength="18" placeholder="6-18位数字或字母的密码"
+                           required/>
+                    <small class="help-block"
+                           ng-show="dataForm.password.$error.minlength||dataForm.password.$error.maxlength">
+                        密码长度在6到18位之间
+                    </small>
+                </div>
+            </div>
+            <div class="form-group"
+                 style="margin-bottom: 20px;margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc">
+                <label for="validateInput" class="control-label col-xs-3 text-center" style="padding: 7px 0;margin-left: 2%">
+                    <img src="img/userInfo/Incode.png" alt=""/> 验证码
+                </label>
+                <div class="col-xs-4" style="padding: 0;border-right: 1px solid #cccccc">
+                    <input type="text" class="form-control" ng-model="validdata" name="validdata"
+                           id="validateInput" placeholder="请输入验证码" ng-length="6" required/>
+                </div>
+                <button ng-click="validateNumber()" ng-disabled="time" class="col-xs-4"
+                        style="background-color:#FFF;color:#20d1f5;margin-top: 6px;padding-right: 0;border: none;outline: none">
+                    {{time?'重新发送验证码('+time+')':'点击获取验证码'}}
+                </button>
+            </div>
+            </form>
+        </div>
+
+        <div class="text-center">
+            <button ng-click="userUpdate()" ng-disabled="dataForm.$invalid" class="btn btn-lg"
+                    style="width:100%;margin-top:10px;background-color: #26d1f5;color: #ffffff">确认提交
+            </button>
+        </div>
+    </form>
+
+    <form name="normalForm" ng-show="loginType=='register'" class="form-horizontal" style="height: 80%" novalidate>
+        <div class="form-group" style="background-color:#efeded;height:25%;margin-right:0px;margin-left: 0px">
+            <div class="col-xs-3" style="margin: 15% auto;font-size: 14px" align="center">头像</div>
+            <div class="col-xs-6" align="center" media-upload type="pic" width="120" height="120">
+                <img src="{{downLoadImgUrl?downLoadImgUrl:'img/xh-logo.png'}}" class="img-circle"
+                     style="width: 100px;height: 100px;margin-top:5%" alt=""/>
+            </div>
+            <div class="col-xs-3" align="center">
+                <img src="img/userInfo/rig.png" media-upload type="pic" width="120" height="120"
+                     style="margin: 57% auto;width: 32px;height: 32px" alt=""/>
+            </div>
+
+        </div>
+        <div class="bg-white">
+            <div class="form-group" style="margin-right: 0px; margin-left: 0px; border-bottom: 1px solid #cccccc">
+                <label for="nichenInput" class="control-label col-xs-3 text-center">
+                    <img src="img/userInfo/user-name.png" alt=""/> 昵称
+                </label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="nichen" ng-model="nickName" class="form-control"
+                           id="nichenInput" placeholder="还没有帅气的昵称" style="padding: 6px 18px 6px 0px;" required/>
+                </div>
+            </div>
+            <div class="form-group input_icon"
+                 style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc">
+                <label class="control-label col-xs-3 text-center" for="classInput">
+                    <img src="img/userInfo/school.png" alt=""/> 学校
+                </label>
+
+                <div ng-click="selectSchool(0)" class="col-xs-8" style="padding: 6px;color: #999; text-align: right;">
+                    {{user.school?user.school:'未选择'}}
+                </div>
+                <a ng-click="selectSchool(0)" class="col-xs-1" style="padding: 0;margin-top: 6px">
+                    <img src="img/userInfo/rig.png" alt=""/>
+                </a>
+            </div>
+            <div class="form-group input_icon"
+                 style="margin-right: 0px; margin-left: 0px;border-bottom: 1px solid #cccccc">
+                <label class="control-label col-xs-3 text-center" for="classInput">
+                    <img src="img/userInfo/class.png" alt=""/> 班级
+                </label>
+
+                <div ng-click="changeDialog()" class="col-xs-8" style="padding: 6px;color: #999; text-align: right;">
+                    {{user.class?user.class:'未选择'}}
+                </div>
+                <a ng-click="changeDialog()" class="col-xs-1" style="padding: 0;margin-top: 6px">
+                    <img ng-src="{{hide?'img/userInfo/rig.png':'img/userInfo/dow.png'}}" alt=""/>
+                </a>
+            </div>
+        </div>
+        <div class="text-center">
+            <button ng-click="userUpdate()" ng-disabled="visible&&normalForm.$invalid" class="btn btn-lg"
+                    style="width: 100%;margin-top: 10px;background-color: #26d1f5;color: #ffffff">
+                确认提交
+            </button>
+        </div>
+    </form>
+</div>
+

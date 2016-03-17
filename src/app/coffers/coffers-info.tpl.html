@@ -1,0 +1,63 @@
+<div b-window-header="我的金库" class="b-header">
+</div>
+<div class="row taskList-clearpaddingLR coffers-topPaddingTitle50"
+     style="padding-bottom: 10%;height: 100%;background-color:#f5f5f6;overflow: auto;">
+    <div class="row taskList-clearpaddingLR text-center coffers-fontsize110">
+        <div ng-click="btnChose(1)" class="col-xs-5 col-xs-offset-1 coffers-borderRadius-L coffers-titleBorder"
+             ng-class="{true: 'coffers-btnActive', false: 'coffers-btnInActive'}[btnisActive]"
+             style="border-right: none; padding: 5px 0px 5px 0px;">
+            收入明细
+            <img style="height: 20px;" ng-src="{{imgMoneyAdd}}">
+        </div>
+        <div ng-click="btnChose(2)" class="col-xs-5 coffers-borderRadius-R coffers-titleBorder"
+             ng-class="{false: 'coffers-btnActive', true:  'coffers-btnInActive'}[btnisActive]"
+             style="border-left: none;padding: 5px 0px 5px 0px;">
+            支出明细
+            <img style="height: 20px;" ng-src="{{imgMoneyMinus}}">
+        </div>
+    </div>
+    <div class="row taskList_clearpaddingLR" style="margin: 25px 0px 25px 0px;">
+        <div class="col-xs-7 col-xs-offset-1 coffers-fontsize110">
+            已有<span style="color:#ff9c11 ;font-size: 150%;">{{myMoneyAllNum|number:0}}</span>个金币
+        </div>
+        <div class="col-xs-3">
+            <div ng-click="getmoney()" class="col-xs-10 pull-right btn btn-default" type="button"
+                 style="font-weight: 400;">
+                提&nbsp;&nbsp;&nbsp;现
+            </div>
+        </div>
+        <div class="col-xs-1">&nbsp;</div>
+        <div class="col-xs-11 col-xs-offset-1" style="padding-top: 5px;color: #696969;font-size: 80%;">
+            其中{{myCashMoney}}个金币为充值所得,所以可以提现金币为
+            <span style="color:#ff9c11;">{{myGetMoney}}</span>个
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" ng-repeat="x in coffersListAll.incomeList">
+        <span ng-if="choseMonth(x.createTime,$index)" class="col-xs-12"
+              style="color: black;padding-left: 15px;font-weight: bolder;">
+            {{x.createTime.getFullYear()}}-{{x.createTime.getMonth()+1}}月</span>
+            <li class="list-group-item" style="overflow: hidden;">
+                <span class="col-xs-2">{{x.createTime.getDate()}}日</span>
+                <!-- /1.充值 /2.答题奖励 /3.系统赠送 /4.任务奖励 /5.提问退款/-1.提问 /-2.购买道具 /-3.提现 -->
+                <div class="col-xs-6" ng-switch="x.typeDetail">
+                    <span ng-switch-when="1" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">充值</span>
+                    <span ng-switch-when="2" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">答题奖励</span>
+                    <span ng-switch-when="3" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">系统赠送</span>
+                    <span ng-switch-when="4" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">任务奖励</span>
+                    <span ng-switch-when="5" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">提问退款</span>
+                    <span ng-switch-when="-1" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">提问</span>
+                    <span ng-switch-when="-2" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">购买道具</span>
+                    <span ng-switch-when="-3" class="col-xs-6" style="color:#3b3b3b;font-weight: bolder;">提现</span>
+                </div>
+                <span ng-if="x.typeDetail>0" class="col-xs-2 text-right" style="color: #ff9c11;font-weight: bolder;">+{{x.amount}}</span>
+                <span ng-if="x.typeDetail<0" class="col-xs-2 text-right" style="color: #757575;font-weight: bolder;">+{{x.amount}}</span>
+                <span class="col-xs-2 text-left">金币</span>
+            </li>
+        </div>
+    </div>
+</div>
+<div ng-click="GotoGetMoney()" class="coffers-bottomButton text-center"
+     style="color: white;background-color: #29d1f5;line-height: 45px;font-size: 130%;">
+    去&nbsp;赚&nbsp;金&nbsp;币
+</div>

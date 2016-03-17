@@ -1,0 +1,111 @@
+<div  b-window-header="我的班级" class="b-header"></div>
+
+<div id="myClass" window-scroll style="height:100%; overflow: scroll;margin-top: 40px;">
+    <div class="row fee-type" ng-class="{'收入':'in-type', '支出':'out-type'}[type]">
+        <div class="col-xs-6 fee-type1" align="center" ng-click="change('收入')">
+
+        </div>
+        <div class="col-xs-6 fee-type1" align="center" ng-click="change('支出')">
+
+        </div>
+    </div>
+    <div class="row class-fee">
+        <div class="col-xs-9 class-fee-col1" align="left">
+            <h5><font color="#a1efff">{{cls.class.school}} {{cls.class.name}}</font></h5>
+            <h5><font color="#fff">已有班费<font color="gold" size="4" style="font-weight:bold;">{{cls.amount ? cls.amount : 0}}</font>个金币  ≈ </font><font color="gold">RMB<font style="font-weight:bold;" size="4">{{cls.amount ? cls.amount/10 : 0}}元 </font></font></h5>
+            <div><span class="class-fee-tip">班费提现由班长负责，班级人数达到10人即可推举班长</span></div>
+        </div>
+        <div class="col-xs-3 class-fee-col2" align="left">
+            <button ng-click="openDialog('user/userInfo/vote.tpl.html', 'voteCtrl', {monitorVoteId : monitorVoteId})" class="votebt" ng-show="voteIsInProcess"></button>
+            <button ng-click="openWin('cash','cash.html')" type="button" class="btn btn-default btn-sm button2" ng-show="isMonitor">提 现</button>
+        </div>
+        <img src="img/myClass/bz.png" style="width:100%;margin-top:-20px;"/>
+    </div>
+    <div id="inFees" ng-show="type == '收入'">
+        <div ng-show="!voteIsInProcess&&inFees1.length == 0" style="width:130px;margin:auto;margin-top:30px">本月班长：<font style="font-weight:bold;" color="#43c6fb">{{cls.monitor.nickname}}</font></div>
+
+        <div ng-if="inFees1.length">
+            <div style="height:155px;background-color: #ffffff;width: 100%;margin-top: 3px">
+                <div class="col-xs-4 text-center">
+                    <img style="margin-top: 25%" ng-src="{{inFees1[1].headPic}}" class="img-circle" width="70" height="70"/>
+                    <img src="img/myClass/0-5.png" style="position:absolute;right:30px;bottom:30px;"/><br/>
+                    <span>{{inFees1[1].contributor.nickname}}</span>
+
+                    <br/>
+                    <img src="img/myClass/0-6.png" alt="img"/>
+                    <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{inFees1[1].amount}}</span>
+                </div>
+                <div class="col-xs-4 text-center" style="background: url(img/myClass/0-1.png)no-repeat 65% 4px">
+                    <img style="margin-top: 18%" ng-src="{{inFees1[0].headPic}}" class="img-circle" width="90" height="90"/>
+                    <img src="img/myClass/0-4.png" style="position:absolute;right:30px;bottom:30px;"/><br/>
+                    <span style="font-weight: bold">{{inFee1[0].contributor.nickname}}</span><br/>
+                    <img src="img/myClass/0-6.png" alt="img"/>
+                    <span style="font-size: 10px;color: #da1213;font-weight: bold">{{inFees1[0].amount}}</span>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <img style="margin-top: 25%" ng-src="{{inFees1[2].headPic}}" alt="" class="img-circle" width="70" height="70"/>
+                    <img src="img/myClass/0-3.png" style="position:absolute;right:30px;bottom:30px;"/><br/>
+                    <span>{{inFees1[2].contributor.nickname}}</span><br/>
+                    <img src="img/myClass/0-6.png" alt="img"/>
+                    <span style="font-size: 10px;color: #f6a50d;font-weight: bold">{{inFees1[2].amount}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="inFees2.length">
+            <div style="margin: 8px 0 5px 10px;width: 90%;height: 40px" ng-repeat="in in inFees2">
+                <img ng-if="in.contributor._id==loginUserId" src="img/myClass/0918-m.png" style="float:left;margin-top:15px;"/>
+                <img ng-if="in.contributor._id!=loginUserId" src="img/myClass/0917-m.png" style="float:left;margin-top:15px;"/>
+                <div style="float:left;border-radius: 15px 0 0 15px;height: 100%;font-size: 18px;font-weight: bold;width: 10%;text-align: center;line-height: 40px;background-color: #34c2fb;">{{in.index}}</div>
+                <div ng-class="{'show-border':in.contributor._id==loginUserId}" style="float:left;background-color: #ffffff;width: 84%;height: 100%;border-radius: 0 15px 15px 0;box-shadow:0 0 2px #c0c0c0;border-bottom:#c0c0c0 1px solid;border-right:#c0c0c0 1px solid;">
+                    <div style="margin-left: 5px;height: 100%">
+                        <div class=" pull-left">
+                            <img style="margin-top: 5px" ng-src="{{in.headPic}}" alt="" width="30" height="30" class="img-circle"/>
+                        </div>
+                        <div class="pull-left" style="margin: 0px 0 0 5px">
+                            <span style="color: #34c2fb;font-size: 12px;font-weight: bold">{{in.contributor.nickname}}</span>
+                            <img ng-if="in.contributor.gender == 0" src="img/question_detail/xq-m-boy-.png" alt=""/>
+                            <img ng-if="in.contributor.gender == 1" src="img/question_detail/xq-m-grl-.png" alt=""/>
+                            <img ng-src="img/question_detail/user-level-{{in.contributor.level}}.png" alt=""/>
+                            <br/>
+                            <span style="color:#ee8d3d;font-size: 10px ;">{{in.honor}}</span>
+                        </div>
+                        <div class="pull-right" style="height: 100%;margin:0px 5% 0 0">
+                            <font size="2">为班级赚得</font>
+                            <span style="color:gold;font-size: 14px;font-weight: bold ">{{in.amount}}</span><br/>
+                            <font style="font-weight:bold; font-size: 0.8em;" color="#c7c7c7">≈ RMB</font><font style="font-size:1em;">{{in.amount ? in.amount/10 : 0}}元 </font>
+                        </div>
+                    </div>
+                </div>
+                <img ng-if="in.contributor._id==loginUserId" src="img/myClass/0919-m.png" style="float:right;margin-top:15px;"/>
+                <img ng-if="in.contributor._id!=loginUserId" src="img/myClass/0917-m.png" style="float:right;margin-top:15px;"/>
+            </div>
+        </div>
+        <div ng-if="inFees1.length == 0" style="margin-top:80px">
+            <img ng-if = "!voteIsInProcess" style="display:block;margin:0 auto;"src="img/myClass/m01-in.png"/>
+            <img ng-if = "voteIsInProcess" style="display:block;margin:0 auto;"src="img/myClass/m01.png"/>
+        </div>
+
+    </div>
+    <div ng-show="type == '支出'" style="padding:40px 0 0 15px; background-color:#fbfbfb; ">
+        <div ng-show="!voteIsInProcess" ng-class="{'monitor':outFees.length != 0}" style="width:130px;margin:auto;">本月班长：<font style="font-weight:bold;" color="#43c6fb">{{cls.monitor.nickname}}</font></div>
+        <div ng-repeat="out in outFees">
+            <div style="font-weight:bold;">{{out._id.year}}-{{out._id.month}}月</div>
+            <div ng-repeat="data in out.datas" style="background-color:#fff;height:3em; line-height: 3em;border-bottom:1px solid #ccc;margin-left:-15px; padding-right:15px; ">
+                <span style="padding-left:15px;">{{data.updateTime|date:'dd日 HH:mm'}} <font style="font-weight:bold;" color="#43c6fb">{{data.contributor.nickname}}</font></span>
+
+                <span style="float:right;font-weight:bold;">提现  <font color="#999898">-{{data.amount}}金币</font></span>
+            </div>
+        </div>
+        <br/>
+        <div ng-if="outFees.length == 0" style="margin-top:60px">
+            <img ng-if = "!voteIsInProcess" style="display:block;margin:0 auto;"src="img/myClass/m02.png"/>
+            <img ng-if = "voteIsInProcess" style="display:block;margin:0 auto;"src="img/myClass/m01.png"/>
+        </div>
+    </div>
+
+    <div class="fee-more" align="center">
+        {{type == '收入' ? showMoreInText : showMoreOutText}}
+        <div><button ng-click="openWin('root', '', {frameIndex: 0}, true)" type="button" ><font color="#fff" size="5">去 赚 金 币</font></button></div>
+    </div>
+</div>

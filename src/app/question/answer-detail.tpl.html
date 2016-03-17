@@ -1,0 +1,99 @@
+
+<div b-window-header>
+    <div ng-if="noAnswerId" class="text-center">{{answerDetail.question.user.nickname}}的问题</div>
+    <div ng-if="!noAnswerId" class="text-center">{{answerDetail.user.nickname}}的回答</div>
+    <div class="pull-right" style="position: absolute;top:0;right:10px">
+        <div  class="btn-group">
+            <span class="dropdown-toggle" data-toggle="dropdown" style="box-shadow: none"><img style="width: 32px;height: 32px;" src="img/question_deital/xq-m-ooo.png" /></span>
+            <ul class="dropdown-menu" style="left:-160%; min-width: 100px; background-color:#31d4f5;padding: 10px 0">
+                <li>
+                    <a ng-if="isQUser && answerDetail.question.finishAnswer != 1" ng-click="bidAnswer()" style="color:#FFF;margin-top: 10px"><img style="margin: -5px 10px 0 0 " src="img/jubao/fenx.png" alt=""/>采纳</a>
+                </li>
+                <li>
+                    <a  report style="color:#FFF;margin-top: 10px" question-report><img style="margin: -5px 10px 0 0 " src="img/jubao/jub.png" alt=""/>举报</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container" style="max-height: 98%;overflow-y: auto;overflow-x: hidden">
+    <div style="width: 100%;margin-top: 5%" >
+        <div style="text-align: center;margin-top: 55px">
+            <img src="" alt=""/>
+            <span ng-if="questionCreateTime.Date && questionCreateTime.amPm" style="font-size: 10px;color: #9d9b9b">{{questionCreateTime.Date}} {{questionCreateTime.amPm}} {{ questionCreateTime.createDate | date: 'h:mm'}}</span>
+            <span ng-if="!questionCreateTime.Date" style="font-size: 10px;color: #9d9b9b">{{ questionCreateTime.createDate | date: 'yyyy年M月d日 HH:mm' }}</span>
+        </div>
+        <div ng-repeat="item in answerDetail.question.content" style="margin-top: 4%;width: 100%;" ng-switch="item.type">
+            <div class="col-xs-2" style="padding-left: 0;position: relative">
+                <img ng-src="{{downLoadBaseURL+answerDetail.question.user.headPic.key}}" alt="" class="img-circle" width="40" height="40"/>
+                <div class="answer-apply-tooltip-left"></div>
+            </div>
+            <div ng-switch-default class="answer-apply-question-user" style="padding: 0 15px;">
+                <p style="margin-top: 10px" ng-bind-html="toHtml(item.content)"></p>
+            </div>
+            <div  ng-switch-when="pic" class="answer-apply-question-user" style="padding: 8px;">
+                <img img-up style="border-radius: 2px" ng-src="{{downLoadBaseURL + item.file.key}}-w200"  width="200" height="100" alt="图片裂了"/>
+            </div>
+            <div ng-switch-when="audio" class="answer-apply-question-user" style="padding: 8px;">
+                <img style="border-radius: 2px" src="img/question_detail/v1-M.png" ng-click="playVideo(downLoadBaseURL + item.file.key)"  alt="图片裂了"/>
+            </div>
+            <div ng-switch-when="video" class="answer-apply-question-user" style="padding: 0 15px; width: 13em;">
+                <img style="border-radius: 2px; float: left; margin-top: 0.4em;" src="img/question_detail/audio-left-xh.png" ng-click="playAudio(downLoadBaseURL + item.file.key)"  alt="图片裂了"/>
+            </div>
+        </div>
+    </div>
+    <div ng-if="answerDetail.content" style="width: 100%;margin-top: 5%">
+        <div style="text-align: center;margin-top: 30px">
+            <img src="" alt=""/>
+            <span ng-show="answerDetail._id && answerCreateTime.amPm && answerCreateTime.Date != null" style="font-size: 10px;color: #9d9b9b">{{answerCreateTime.Date}} {{answerCreateTime.amPm}} {{ answerCreateTime.createDate | date: 'h:mm'}}</span>
+            <span ng-show="answerDetail._id && answerCreateTime.Date == null " style="font-size: 10px;color: #9d9b9b">{{ answerCreateTime.createDate | date: 'yyyy年M月d日 HH:mm' }}</span>
+        </div>
+        <div ng-repeat="item in answerDetail.content" style="margin-top: 4%;width: 100%;" ng-switch="item.type">
+            <div  ng-if="qUser == item.user">
+                <div class="col-xs-2 " style="padding-left: 0;position: relative">
+                    <img  ng-src="{{downLoadBaseURL+answerDetail.question.user.headPic.key}}-w200" alt="" class="img-circle" width="40" height="40"/>
+                    <div class="answer-apply-tooltip-left "></div>
+                </div>
+                <div ng-switch-default class=" answer-apply-question-user" style="padding: 0 15px;">
+                    <p  style="margin-top: 10px;color: #000000" ng-bind-html="toHtml(item.content)"></p>
+                </div>
+                <div ng-switch-when="pic" class="answer-apply-question-user" style="padding: 8px;">
+                    <img img-up style="border-radius: 2px" ng-src="{{downLoadBaseURL+item.file.key}}-w200"  width="200" height="100" alt="图片裂了
+                    "/>
+                </div>
+                <div ng-switch-when="video" class="answer-apply-question-user" style="padding: 8px;">
+                    <img style="border-radius: 2px" src="img/question_detail/v1-M.png" ng-click="playVideo(item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div ng-switch-when="audio" class="answer-apply-question-user" style="padding: 0 15px; width: 13em;">
+                    <img style="border-radius: 2px; float: left; margin-top: 0.4em;" src="img/question_detail/audio-left-xh.png" ng-click="playAudio(item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div ng-if="qUser != item.user">
+                <div class="col-xs-2 pull-right" style="padding-right: 0;position: relative">
+                    <div class="pull-right"><img  ng-src="{{downLoadBaseURL+answerDetail.user.headPic.key}}" alt="" class="img-circle" width="40" height="40"/></div>
+                    <div class="answer-apply-tooltip-right "></div>
+                </div>
+                <div ng-switch-default class=" answer-apply-answer-user pull-right" style="padding: 0 15px;">
+                    <p  style="margin-top: 10px;" ng-bind-html="toHtml(item.content)"></p>
+                </div>
+                <div ng-switch-when="pic" class="answer-apply-answer-user pull-right" style="padding: 8px;">
+                    <img img-up style="border-radius: 2px; width: 14em; height: 14em;" ng-src="{{item.file.key ? downLoadBaseURL + item.file.key + '-w200' : item.content}}" alt="图片裂了"/>
+                </div>
+                <div ng-switch-when="video" class="answer-apply-answer-user pull-right" style="padding: 8px;">
+                    <img style="border-radius: 2px;" src="img/question_detail/v1-M.png" ng-click="playVideo(item.file.key ? item.file.key : item.content)" alt="图片裂了"/>
+                </div>
+                <div ng-switch-when="audio" class="answer-apply-answer-user pull-right" style="padding: 0 15px; width: 13em;">
+                    <img style="border-radius: 2px; float: right; margin-top: 0.4em;" src="img/question_detail/audio-right-xh.png" ng-click="playAudio(item.file.key ? item.file.key : item.content)"   alt="图片裂了"/>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="isAUser || isQUser || noAnswerId" b-chat-box b-chat-box-data-handler="pushChatData"></div>
+
+
+
+
+

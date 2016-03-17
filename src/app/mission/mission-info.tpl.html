@@ -1,0 +1,97 @@
+<div class="container taskList_clearpaddingLR" style="padding-bottom: 70px;">
+    <!--一次遍历-->
+    <div class="row" ng-repeat="list_3 in MissionListAll">
+        <!--二次遍历-->
+        <div class="col-xs-12 taskList_clearpaddingLR" ng-repeat="list in list_3 | orderBy:'list.mission.orderIndex'">
+            <!--这里是任务类型块-->
+            <div class="col-xs-12 taksList_BigtitleBGC text-center" ng-if="$index==0">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <h4 ng-if="list.mission.type==1&&$index==0"><strong>新手任务</strong></h4>
+                    <h4 ng-if="list.mission.type==2&&$index==0"><strong>每日任务</strong></h4>
+                    <h4 ng-if="list.mission.type==3&&$index==0"><strong>特殊任务</strong></h4>
+
+                    <div ng-if="$index==0" class="col-xs-2 col-xs-offset-6">
+                        <div class="taskList_triangletop "></div>
+                    </div>
+                </div>
+            </div>
+            <!--这里是子任务块-->
+            <div style="padding-left:15px;padding-right:15px;"
+                 class="taskList_paddingLR col-xs-12" ng-if="list.usermission.status!=3">
+                <!--这里是title块,也是整体显示块,分为4个部分,图片,标题,奖励,出发按钮(领取按钮)-->
+                <div class="col-xs-12" style="padding-bottom:15px;padding-top:15px;">
+                    <div ng-click="downupClick(list.mission._id)" class="col-xs-9">
+                        <div class="col-xs-2">
+                            <div class="col-xs-9">
+                                <img style="width:100%;" ng-src="./img/mission/01.png"/>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 taskList_fontSize115 taskList_lingheight">
+                            {{list.mission.name}}
+                        </div>
+                        <div class="col-xs-4  taskList_fontColorAward taskList_lingheight">
+                            <span class="col-xs-4 taskList_clearpaddingLR">奖励</span>
+
+                            <div class="col-xs-8 taskList_clearpaddingLR">
+									<span style="color:#21cff4;" ng-if="list.mission.awardType==2"> 
+									<strong>{{list.mission.award[1]}}</strong>积分<img
+                                            src="./img/mission/xq-m-gold-1.png"></span>
+									<span ng-if="list.mission.awardType==1">
+									<strong>{{list.mission.award[0]}}</strong>金币<img src="./img/mission/xq-m-gold-.png"></span>
+									<span style="color:#21cff4;" ng-if="list.mission.awardType==3"> 
+									<strong>{{list.mission.award[1]}}</strong>积分<img
+                                            src="./img/mission/xq-m-gold-1.png"></span>
+									<span ng-if="list.mission.awardType==3">
+									<strong></br>{{list.mission.award[0]}}</strong>金币<img
+                                            src="./img/mission/xq-m-gold-.png"> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" ng-switch="list.usermission.status">
+                        <div class="col-xs-8 taskList_btnhight">
+                            <div id="{{list.mission._id}}d" ng-switch-when="2" ng-style="myheight"
+                                 class="col-xs-12 text-center taskList_getBtn"
+                                 ng-click="getAward(list.usermission._id)">
+                                领&nbsp;&nbsp;取
+                            </div>
+                            <div id="{{list.mission._id}}d" ng-switch-default ng-style="myheight"
+                                 class="col-xs-12 text-center taskList_getBtn1"
+                                 ng-click="downupClick(list.mission._id)">
+                                未完成
+                            </div>
+                        </div>
+                        <div class="col-xs-4 text-center taskList_fontColorAward">
+									<span id="{{list.mission._id}}a"
+                                          class="taskList_lingheight taskList_symbolSize glyphicon glyphicon-chevron-down"
+                                          ng-click="downupClick(list.mission._id)"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--这里是子任务的详情块,里边包含内容,和按钮-->
+                <div id="{{list.mission._id}}c" class="col-xs-12 taskList_displaynone">
+                    <div class="col-xs-12 taskList_contentBGC" ng-switch="list.usermission.status">
+                        <p style="color:#2ad2f5;font-weight: bold;font-size:110%;"
+                           class="col-xs-10 col-xs-offset-1 text-left">
+                            任务说明：
+                        </p>
+
+                        <p style="color:#757575;" class="col-xs-10 col-xs-offset-1 text-left">
+                            {{list.mission.description}}
+                        </p>
+
+                        <div class="col-xs-6 col-xs-offset-3 text-center">
+                            <div ng-switch-default class="col-xs-12 taskList_getBtn"
+                                 ng-click="gotoMission(list.mission.link)">
+                                {{list.mission.buttonText}}从这里开始任务
+                            </div>
+                            <div ng-switch-when="2" class="col-xs-12 taskList_getBtn"
+                                 ng-click="getAward(list.usermission._id)">
+                                领取奖励
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

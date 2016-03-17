@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bootstrap.min.css"/>
+    <style>
+        .user-pay-radio{
+            height: 18px;
+            width: 18px;
+            background: url("../../assets/img/user-pay/02w.png");
+            position: relative;
+        }
+        .user-pay-radio:checked:after {
+            content: ' ';
+            width: 18px;
+            height: 18px;
+            border-radius: 50px;
+            position: absolute;
+            background: url("../../assets/img/user-pay/02b.png");
+            box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+            text-shadow: 0px;
+        }
+    </style>
+</head>
+<body style="background-color: #f3f3f3">
+    <div style="height: 170px;text-align: center;margin-top: 40px;padding-top: 60px;background-color: #f4f4f4">
+            <b style="color: #ff9401;font-size: 28px">+500金币</b><br/>
+            <b style="color: #727272">应付金额： 5元</b>
+    </div>
+    <img style="position: absolute;top:170px" src="../../assets/img/user-pay/shang-xh.png" width="100%" alt=""/>
+    <div class="container" style="height: 50px;line-height: 50px;background-color: #b5b5b5;">
+        <b style="color: #ffffff;font-size: 12px" class="pull-left">金币兑换比例</b>
+        <b style="color: #ffffff;font-size: 12px" class="pull-right ">1元 兑换 10金币</b>
+    </div>
+    <div style="background-color: #ffffff;margin-top: 3px;height: 40px;line-height: 40px;padding: 0 15px">
+        <b style="color: #ff9401;font-size: 12px;display: inline-block;width: 25%">10金币</b>
+        <b style="font-size: 12px;color: #bdbdbd">应付金额： 1元</b>
+        <input type="radio"   name="radio" class="pull-right user-pay-radio" style="margin-top: 15px"/>
+    </div>
+    <div style="background-color: #ffffff;margin-top: 3px;height: 40px;line-height: 40px;padding: 0 15px">
+        <b style="color: #ff9401;font-size: 12px;display: inline-block;width: 25%">100金币</b>
+        <b style="font-size: 12px;color: #bdbdbd">应付金额： 10元</b><img style="margin:-2px 0 0 10px" src="../../assets/img/user-pay/01.png" alt=""/>
+        <input  type="radio"  name="radio" checked  class="pull-right user-pay-radio" style="margin-top: 15px"/>
+    </div>
+    <div style="background-color: #ffffff;margin-top: 3px;height: 40px;line-height: 40px;padding: 0 15px">
+        <b style="color: #ff9401;font-size: 12px;display: inline-block;width: 25%">1000金币</b>
+        <b style="font-size: 12px;color: #bdbdbd">应付金额： 100元</b>
+        <input  type="radio"  name="radio"  class="pull-right user-pay-radio" style="margin-top: 15px"/>
+    </div>
+    <div style="background-color: #ffffff;margin-top: 3px;height: 40px;line-height: 40px;padding: 0 15px">
+        <b style="color: #ff9401;font-size: 12px;display: inline-block;width: 25%">10000金币</b>
+        <b style="font-size: 12px;color: #bdbdbd">应付金额： 1000元</b>
+        <input  type="radio"  name="radio"  class="pull-right user-pay-radio" style="margin-top: 15px"/>
+    </div>
+    <div  style="height: 50px;position: fixed;bottom: 0;background-color: #26d1f5;width: 100%;line-height:50px;color: #ffffff;text-align: center;font-size: 18px;font-weight: bold">
+        立刻充值
+    </div>
+
+</body>
+</html>

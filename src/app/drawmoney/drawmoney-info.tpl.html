@@ -1,0 +1,276 @@
+<connect-wait ng-if="conWait"></connect-wait>
+<div b-window-header="提&nbsp;现" class="b-header">
+</div>
+<div class="row taskList-clearpaddingLR coffers-topPaddingTitle50"
+     style="height: 100%;background-color:#f5f5f6;overflow: auto;">
+    <div class="row" style="margin-top: 45px;overflow: hidden">
+        <div class="col-xs-4 col-xs-offset-4">
+            <img class="center-block" style="margin-top: 10px;width: 80px;height: 80px;border-radius: 50%;"
+                 ng-src="{{headimg}}">
+        </div>
+        <div class="col-xs-6 col-xs-offset-3 text-center" style="margin-top: 10px;color:#383838 ;font-weight: bolder;">
+            {{username}}
+        </div>
+        <div class="col-xs-4 col-xs-offset-4 text-center" style="margin-top: 10px;color:#b8b8b8;">我的金币共</div>
+        <div class="col-xs-6 col-xs-offset-3 text-center" style="color:#13caf3;margin-top:5px;">
+            <span class="col-xs-8 text-right" style="font-size: 300%;display: block;">{{mymoney}}</span>
+            <span class="col-xs-4 text-left"
+                  style="font-size: 80%;display: block;line-height: 5px;">金币</span></div>
+        <div class="col-xs-10 col-xs-offset-1 text-center" style="margin-top: 30px;color:#b8b8b8;">
+            金币兑换比例10金币可以兑换1元
+        </div>
+    </div>
+    <div style="background: url('img/drawmoney/0911-m.png');height: 8px;width: 100%;"></div>
+    <div class="row" style="overflow: hidden;background-color: white;height: 50%;">
+        <div class="col-xs-12" style="padding: 10px 5px 0px 5px ;">
+            <span class="col-xs-12 text-center"
+                  style="padding-bottom:10px;border-bottom:1px solid #b8b8b8;display: block">
+                <span style="color: #31d3f5">到账时间</span>&nbsp;<span style="color:#757575">提现申请提交后24小时内到账</span>
+            </span>
+        </div>
+        <div ng-if="mymoney<500" class="col-xs-12 text-center" style="font-size: 120%;padding-top: 20px;color:#ff900f">
+            提现最低限额500金币,您现在还不可以提现哟!
+        </div>
+        <div ng-if="mymoney>=500" class="col-xs-12 text-center" style="font-size: 120%;padding-top: 20px;color:#ff900f">
+            提现最低限额500金币,提现需谨慎!
+        </div>
+        <div class="col-xs-12 text-center" style="padding-top: 25px;">
+            <div class="col-xs-2" style="color:#3b3b3b;font-size: 140%;line-height: 40px;">金币</div>
+            <div class="col-xs-6 ">
+                <input maxlength="4" ng-change="checkInputMoney()" ng-model="inputMoney" placeholder="请输入金币数量"
+                       type="text"
+                       style="font-size: 130%;width: 100%;height: 40px;background-color:#ededee;color:#757575;border: none;">
+            </div>
+            <span class="col-xs-1 text-center" style="color: #757575;line-height: 40px;font-size: 140%">=</span>
+            <div class="col-xs-3 text-center" style="color:#757575">
+                <span style="color:#ff840c;font-size: 140%;line-height: 40px;">
+                    <span ng-if="inputMoney==undefined">0.0</span>
+                    {{(inputMoney/10)|number : 1}}</span>元
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="mydaddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" ng-if="chosesynnum==1||chosesynnum==2||chosesynnum==3">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title text-center" id="myModalLabel">设置6位数字提现密码</h3>
+                </div>
+                <div class="modal-header" ng-if="chosesynnum==4||chosesynnum==5">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title text-center" id="myModalLabel">请输入提取密码</h3>
+                </div>
+                <div class="modal-header" ng-if="chosesynnum==6||chosesynnum==8">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title text-center" id="myModalLabel">密码错误</h3>
+                </div>
+                <div class="modal-header" ng-if="chosesynnum==7">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title text-center" id="myModalLabel">提现成功</h3>
+                </div>
+                <div class="modal-header" ng-if="chosesynnum==9">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title text-center" id="myModalLabel">忘记密码</h3>
+                </div>
+                <div class="modal-body " style="overflow: hidden">
+                    <div ng-if="chosesynnum==1||chosesynnum==4||chosesynnum==5" class="col-xs-12"
+                         style="padding-top: 15px;padding-bottom: 10px;"
+                         ng-click="setMyGetMoneyPWD(1)">
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[0]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[1]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[2]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[3]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[4]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd1[5]|setPWD}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="chosesynnum==1" class="col-xs-12 text-left" style="color: #a0a0a0;font-size: 100%;">
+                        请设置提现密码
+                    </div>
+                    <div ng-if="chosesynnum==4||chosesynnum==5" class="col-xs-12 text-left"
+                         style="color: #ff6868;font-size: 100%;">
+                        忘记密码
+                    </div>
+                    <!--二次输入密码-->
+                    <div ng-if="chosesynnum==2" ng-click="setMyGetMoneyPWD(2)" class="col-xs-12"
+                         style="padding-top: 10px;padding-bottom: 10px;">
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[0]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[1]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[2]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[3]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[4]|setPWD}}
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="col-xs-8 col-xs-offset-2 text-center"
+                                 style="line-height: 50px;height:50px;"
+                                 ng-class="{true: 'drawmoney-btnActive', false:  'drawmoney-btnInActive'}[btnisActive]">
+                                {{setSafePwd2[5]|setPWD}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="chosesynnum==2" class="col-xs-12 text-left" style="color: #a0a0a0;font-size: 100%;">
+                        请再次输入提取密码
+                    </div>
+                    <div ng-if="setPWDtwoProper">
+                        与第一次输入密码不一致,请重新输入!或者<br>
+                        <span style="color: #29d1f5 ">重新设置密码</span>
+                    </div>
+                    <div ng-if="chosesynnum==3" class="col-xs-12 text-center" style="color: black;">
+                        <h3>设置提取密码成功</h3>
+                    </div>
+                    <div ng-if="chosesynnum==6" class="col-xs-12 text-center" style="color: black;">
+                        轻敲打海豚和举起的小牌子!
+                        密码输入错误3次就会被锁账号到次日哦!
+                        <div class="col-xs-12"></div>
+                        <div class="col-xs-6 text-right" ng-click="errPWDinput(1)">
+                            <img src="img/drawmoney/errleft.png">
+                        </div>
+                        <div class="col-xs-6 text-left" ng-click="errPWDinput(2)">
+                            <img src="img/drawmoney/errright.png">
+                        </div>
+                    </div>
+                    <div ng-if="chosesynnum==8" class="col-xs-12 text-center" style="color: black;">
+                        今日提现密码已累计输入错误3次,<br>您的账户已被锁定,将于明日0点解锁。
+                    </div>
+                    <div ng-if="chosesynnum==7" class="col-xs-12 text-center" style="color: black;">
+                        <p class="col-xs-12">将在7个工作日内到账<br>
+                            届时将以微信红包形式到账,请注意查收哦!</p>
+                    </div>
+                    <div ng-if="chosesynnum==9" class="col-xs-12 text-center" style="color: black;">
+                        <div class="col-xs-12 text-center">
+                            <span style="color: #29d1f5;">您的手机号码是:{{userPhone}}</span>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-6 col-xs-offset-1">
+                                <input type="text" placeholder="请输入手机收到的验证码" ng-model="inputcode"
+                                       style="background-color: #a0a0a0;border: none;font-size: 80%;">
+                            </div>
+                            <div ng-disabled="phoneCodeTrue" ng-click="getphoneCode()" class="col-xs-4"
+                                 style="background-color:#29d1f5">
+                                获取验证码{{phoneCode}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="overflow: hidden;height: 0px;border: none;">
+                    <!--<input style="color:white;height: 0px;border: none;"-->
+                           <!--ng-change="myPwdChange()" id="inputPWD" type="password" ng-model="myPWD">-->
+                </div>
+
+                <div class="modal-footer" style="height: 65px;padding-bottom: -25px;overflow: visible">
+                    <div ng-if="chosesynnum!=6"
+                         class="drawmoney-btnNext text-center taskList_clearpaddingLR center-block" type="button"
+                         ng-class="{true: 'drawmoney-btnNext1', false:  'drawmoney-btnNext2'}[btnNext]"
+                         ng-disabled="btnNext" ng-click="GotoGetMoney()">
+                        <span ng-if="!setPWDtwoProper&&chosesynnum!=3&&chosesynnum!=4&&chosesynnum!=5&&chosesynnum!=8&&chosesynnum!=7&&chosesynnum!=9">确认</span>
+                        <span ng-if="!setPWDtwoProper&&chosesynnum==3">提现</span>
+                        <span ng-if="chosesynnum==4||chosesynnum==5">提现</span>
+                        <span ng-if="setPWDtwoProper" ng-click="setagain()"> 重设</span>
+                        <span ng-if="chosesynnum==8||chosesynnum==7||chosesynnum==9" ng-click="closeThisM()">知道了</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute;padding: 0px;overflow: hidden;bottom: 0px;"
+             class="col-xs-12 text-center drawmoney-Keyboard">
+            <div id="keyboardHead" class="col-xs-12 text-center" style="padding: 5px 0px 5px 0px">
+                <span class="glyphicon glyphicon-menu-down"></span>
+            </div>
+            <div class="col-xs-12" id="keyboardBody">
+                <div class="col-xs-12">
+                    <div class="col-xs-4 text-center drawmoney-Keyboard"
+                         id="keyboard{{num}}"
+                         ng-click="getkeyboardNum(num)"
+                         ng-repeat="num in keyboard">{{num}}
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div style="background-color:#E6E6E6;" class="col-xs-4 text-center drawmoney-Keyboard">&nbsp;</div>
+                    <div class="col-xs-4 text-center drawmoney-Keyboard"
+                         id="keyboard0" ng-click="getkeyboardNum(0)">0
+                    </div>
+                    <div id="keyboardDelete" ng-click="keyboardDelete()"
+                         style="background-color:#E6E6E6;font-size: 110%;"
+                         class="col-xs-4 text-center drawmoney-Keyboard ">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button ng-disabled="!CbtnisActive" ng-click="activeSetPwd()" class="coffers-bottomButton text-center"
+        style="line-height: 45px;font-size: 130%;"
+        ng-class="{true: 'drawmoney-btnActive', false: 'drawmoney-btnInActive'}[CbtnisActive]">
+    {{buttonInfo}}
+</button>

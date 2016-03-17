@@ -1,0 +1,141 @@
+
+<div b-window-header style="text-align: center">
+    <span>{{userInfo.nickname}}的问题</span>
+    <div  class="pull-right" style="position: absolute;top:0;right:10px">
+        <div  class="btn-group">
+            <span class="dropdown-toggle" data-toggle="dropdown" style="box-shadow: none"><img style="width: 32px;height: 32px;" src="img/question_detail/xq-m-ooo.png" /></span>
+            <ul class="dropdown-menu" style="left:-160%; min-width: 100px; background-color:#31d4f5;padding: 5px 0">
+                <li>
+                    <a style="color:#FFF;margin-top: 10px" question-share><img style="margin: -5px 10px 0 0 " src="img/jubao/fenx.png" alt=""/>分享</a>
+                </li>
+                <li>
+                   <a style="color:#FFF;margin-top: 10px" ng-click="collect()" ><img style="margin: -5px 10px 0 0 " src="img/jubao/shouc.png" alt=""/>收藏</a>
+                </li>
+                <li>
+                    <a style="color:#FFF;margin-top: 10px" report><img style="margin: -5px 10px 0 0 " src="img/jubao/jub.png" alt=""/>举报</a>
+                </li>
+                <li ng-if="noAnswer && isQUser && isOvertime">
+                    <a  style="color:#FFF;margin-top: 10px" raise-coin><img style="margin: -5px 10px 0 0 " src="img/jubao/shouc.png" alt=""/>提高悬赏</a>
+                </li>
+                <li ng-if="noAnswer && isQUser && question.dataStatus > 0">
+                    <a  style="color:#FFF;margin-top: 10px" esc-question><img style="margin: -5px 10px 0 0 " src="img/jubao/jub.png" alt=""/>取消提问</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin-top: 40px; max-height: 37em; overflow-y: scroll; margin-bottom: 3em;">
+    <div  style="margin-top: 15px;height: 80px">
+        <div class="col-xs-2 text-left">
+            <img ng-src="{{downLoadBaseURL + userInfo.headPic.key}}" alt="" class="img-circle" width="50px" height="50px"/>
+        </div>
+        <div class="col-xs-5" style="margin-top: 5px;padding-left: 10px">
+            <span style="font-weight: bold;">{{userInfo.nickname}}</span>
+            <img ng-if="userInfo.gender == 0" src="img/question_detail/xq-m-boy-.png" alt=""/>
+            <img ng-if="userInfo.gender == 1" src="img/question_detail/xq-m-grl-.png" alt=""/>
+            <img ng-src="img/question_detail/user-level-{{userInfo.level}}.png" alt=""/><br>
+            <span style="font-size: 12px;color: #7c7b7b">{{userInfo.grade}} {{question.subject}}&nbsp;&nbsp;{{question.createTime | date:'MM-dd'}}</span>
+        </div>
+        <div class="col-xs-offset-1 col-xs-4 text-right" style="margin-top: 7px">
+            <span>
+                <img src="img/question_detail/xq-m-gold-.png" style="margin-top: -7px"/>
+                <span style="color: #fe8701;font-size: 20px;font-weight: bold">{{question.coin}}</span>
+            </span>
+        </div>
+    </div>
+    <div>
+        <p><span style="color:#2bd2f4 ">提问: </span></p>
+        <div ng-repeat="c in question.content" ng-switch="c.type" style="margin-top: 0.5em;">
+            <div ng-switch-when="pic">
+                <img ng-src="{{downLoadBaseURL + c.file.key}}-w200"/>
+            </div>
+            <div ng-switch-when="audio" class="audio">
+                <img src="img/question_detail/audio.png" ng-click="playAudio(downLoadBaseURL + c.file.key)" style="width: 12.4em; height: 2.3em;" />
+            </div>
+            <div ng-switch-when="video">
+                <img src="img/question_detail/v1-M.png" ng-click="playVideo(downLoadBaseURL + c.file.key)" />
+            </div>
+            <div ng-switch-default>
+                <span ng-bind-html="toHtml(c.content)"></span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="noAnswer && isQUser && !isOvertime" style="width: 100%;text-align: center">
+        <div><img src="img/question_detail/push.png" alt=""/></div>
+        <b style="color: #59d6f2;">已推送{{pushNum}}次</b><br/> <b style="color: #8e8d8d;font-size: 12px">学霸们正在帮你解答,请稍等片刻！</b>
+    </div>
+    <div ng-if="noAnswer && isQUser && isOvertime" style="width: 100%;text-align: center">
+        <div><img src="img/question_detail/raisecoin.png" alt=""/></div>
+        <b style="color: #8e8d8d;font-size: 12px;"> 哎嘿！你的问题可能太难了！<br/>点击右上角菜单取消提问或<a raise-coin style="color: #59d6f2">提高悬赏</a>再试试哟！</b>
+    </div>
+    <div ng-if="noAnswer && !isQUser" style="width: 100%;;text-align: center">
+        <div><img src="img/question_detail/no-m.png" alt=""/></div>
+        <b style="color: #8e8d8d;font-size: 12px;">学霸，来挑战下这道高悬赏难题吧！</b>
+    </div>
+
+    <div class="question-detail-answer-list">
+        <ul>
+            <li ng-if="isBid" ng-click="openDialog('question/answer-detail.tpl.html','answerDetailCtrl',question._id, trueAnswer._id)">
+                <span style="position: absolute;top: -6px;left: -2px"><img src="img/question_detail/xq-m-well-01.png" alt=""/></span>
+                <div>
+                    <div class="col-xs-2 text-center"style="margin-top: 4%">
+                        <img ng-src="{{downLoadBaseURL + trueAnswer.user.headPic.key}}" alt="" class="img-circle" width="40px" height="40px"/>
+                    </div>
+                    <div class="col-xs-10" style="margin-top: 4%">
+                        <span style="font-weight: bold;">{{trueAnswer.user.nickname}}</span><br>
+                        <span style="font-size: 12px;color: #7c7b7b">{{trueAnswer.updateTime | date:'MM-dd'}}&nbsp;&nbsp;{{trueAnswer.content.length}}个评论</span>
+                        <span style="position: absolute;top: -100%;left: 60%"><img src="img/question_detail/xq-m-well-.png" alt=""/></span>
+                    </div>
+                </div>
+                <div style="margin: 20% 0 0 4%">
+                    <p>
+                        <span style="color:#fe9214 ">回答：</span>
+                        <span ng-if="trueAnswer.content[0].type === 'text'" style="margin-top: 5px">
+                            <span ng-bind-html="toHtml(trueAnswer.content[0].content)"></span>
+                        </span>
+                        <span ng-if="trueAnswer.content[0].type === 'pic'">
+                            <img style="margin:-6px 0 5px 5px" ng-src="{{downLoadBaseURL + trueAnswer.content[0].file.key}}-w200"/>
+                        </span>
+                        <span ng-if="trueAnswer.content[0].type === 'audio'">
+                            <img src="img/question_detail/audio.png" ng-click="playAudio(downLoadBaseURL + trueAnswer.content[0].file.key)" style="width: 12.4em; height: 2.3em;"/>
+                        </span>
+                        <span ng-if="trueAnswer.content[0].type === 'video'">
+                            <img src="img/question_detail/v1-M.png" ng-click="playVideo(downLoadBaseURL + trueAnswer.content[0].file.key)"/>
+                        </span>
+                    </p>
+                </div>
+            </li>
+            <li ng-repeat="item in answerList" ng-click="openDialog('question/answer-detail.tpl.html','answerDetailCtrl',question._id, item._id)">
+                <div>
+                    <div class="col-xs-2 text-center"style="margin-top: 4%">
+                        <img ng-src="{{downLoadBaseURL + item.user.headPic.key}}" alt="" class="img-circle" width="40px" height="40px"/>
+                    </div>
+                    <div class="col-xs-10" style="margin-top: 4%">
+                        <span style="font-weight: bold;">{{item.user.nickname}}</span><br>
+                        <span style="font-size: 12px;color: #7c7b7b">{{item.updateTime | date:'MM-dd'}}&nbsp;&nbsp;{{item.content.length}}个评论</span>
+                    </div>
+                </div>
+                <div style="margin: 20% 0 0 4%">
+                    <p>
+                        <span style="color:#fe9214 ">回答：</span>
+                        <span ng-if="item.content[0].type === 'text'" style="margin-top: 5px">
+                            <span ng-bind-html="toHtml(item.content[0].content)"></span>
+                        </span>
+                        <span ng-if="item.content[0].type === 'pic'">
+                            <img style="margin:-6px 0 5px 5px" ng-src="{{downLoadBaseURL + item.content[0].file.key}}-w200"/>
+                        </span>
+                        <span ng-if="item.content[0].type === 'audio'" class="audio">
+                            <img src="img/question_detail/audio.png" ng-click="playAudio(downLoadBaseURL + item.content[0].file.key)" style="width: 12.4em; height: 2.3em;"/>
+                        </span>
+                        <span ng-if="item.content[0].type === 'video'">
+                            <img src="img/question_detail/v1-M.png" ng-click="playVideo(downLoadBaseURL + item.content[0].file.key)"/>
+                        </span>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div ng-if="!continueAnswer&&!isQUser&&!isBid" ng-click="goReply('question/answer-detail.tpl.html','answerDetailCtrl', question._id)" style="position: fixed;z-index: 99;bottom: 0;width: 100%;height: 50px;line-height:50px;color:#ffffff;font-size:18px;background-color: #2bd3f5;text-align: center">我要回答<img src="img/question_detail/m-hand.png"/></div>
+<div ng-if="continueAnswer&&!isQUser&&!isBid"  ng-click="goReply('question/answer-detail.tpl.html','answerDetailCtrl', '', currentUserAnswerId)" style="position: fixed;z-index: 99;bottom: 0;width: 100%;height: 50px;line-height:50px;color:#ffffff;font-size:18px;background-color: #2bd3f5;text-align: center">继续回答<img src="img/question_detail/m-hand.png"/></div>
+

@@ -1,0 +1,32 @@
+<div style="z-index: 99;" b-window-header="我的反馈" class="b-header"></div>
+<div id="myFeedback" class="pad40" style="overflow: auto;height: 100%;">
+    <div class="row">
+        <div style="padding-right: 10px;padding-left: 10px;" class="setpaddingTopAndBottom bottomsolidccc col-xs-12 contentset"
+             ng-repeat="list in allFeedBackList|orderBy:'-updateTime'" ng-click="listclick(list);">
+            <h4 class="col-xs-10"><strong>{{list.content[0].content|limitTo:15}}</strong></h4>
+
+            <p style="padding-bottom: 10px;color: #16cbf3;" class="text-center glyphicon glyphicon-chevron-right col-xs-2"></p>
+
+            <p class="col-xs-9">
+                {{list.content[list.content.length-1].content|limitTo:40}}...
+            </p>
+            <span class="onhidden col-xs-3 spanchoseline text-center">{{list.updateTime|CTime}}</span>
+            <br>
+            &nbsp;
+        </div>
+    </div>
+    <div class="row" style="background-color: #f0eeef;padding-bottom: 40px;"ng-if="myimgBool1||myimgBool0">
+        <br>
+        &nbsp;
+        <br>
+
+        <div class="col-xs-4 col-xs-offset-4">
+            <img class="myimg1" ng-src="{{myimg1}}" ng-if="myimgBool1"/>
+        </div>
+        <div class="col-xs-4 col-xs-offset-4">
+            <img class="myimg0" ng-src="{{myimg0}}" ng-if="myimgBool0"/>
+        </div>
+    </div>
+    <con-action-ctr ng-if="conAction"></con-action-ctr>
+    <connect-wait ng-if="conWait"></connect-wait>
+</div>

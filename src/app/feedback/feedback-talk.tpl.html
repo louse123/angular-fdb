@@ -1,0 +1,70 @@
+<div b-window-header="反馈详情" class="b-header"></div>
+<div class="container-fluid" style="margin-top: 40px;padding-bottom: 90px;height:99%;overflow: auto;">
+    <div class="row clearleftrightpadding" style="padding-bottom: 10px;" ng-repeat="list in allFeedInfo.content">
+        <div class="col-xs-12 text-center" ng-if="list.updateTime|ShowTime:allFeedInfo.content:$index">
+            <span class="Timeimg glyphicon glyphicon-time"></span>
+            {{(list.updateTime|CWTime:allFeedInfo.content:$index).mytime}}
+        </div>
+        <div class="col-xs-2 text-center">
+            <img ng-show="list.user|Cimg: Myuser " class=" headimg" ng-src="{{userImgUrl}}">
+        </div>
+        <div class="col-xs-8 infoContentShadow" style="padding-left: 10px;padding-right: 10px;">
+            <!-- 文字内容-->
+            <p ng-bind-html="myTextFace(list.content)" style="padding-top:10px;" ng-if="list.type=='text'">
+                <!--{{list.content}}-->
+            </p>
+            <!-- 表情内容-->
+
+            <!-- 图片内容-->
+            <p style="padding-top:10px;" ng-if="list.type=='pic'&&!list.filetrue"
+               ng-click="showPicFun(imeurl7bef+list.file.key)">
+                <img style="width:100%;" ng-src="{{imeurl7bef+list.file.key}}-w200">
+            </p>
+            <!-- 用户新输入图片内容-->
+            <p style="padding-top:10px;" ng-if="list.filetrue&&list.type=='pic'" ng-click="showPicFun(list.key)">
+                <img style="width:100%;" ng-src="{{list.key}}">
+            </p>
+            <!-- 视频内容-->
+            <p style="padding-top:10px;" ng-if="list.type=='video'&&!list.filetrue"
+               ng-click="showVideo(imeurl7bef+list.file.key)">
+                视频文件 <span class="glyphicon glyphicon-expand"></span>
+            </p>
+            <!-- 用户新输入视频内容-->
+            <p style="padding-top:10px;" ng-if="list.type=='video'&&list.filetrue" ng-click="showVideo(list.key)">
+                视频文件 <span class="glyphicon glyphicon-expand"></span>
+            </p>
+            <!-- 用户新输入声音内容-->
+            <!--<p style="padding-top:10px;" ng-if="list.filetrue">-->
+            <!--<img style="width:100%;" ng-src="{{list.key}}">-->
+            <!--</p>-->
+
+        </div>
+        <div class="col-xs-2 text-center">
+            <img ng-hide="list.user|Cimg: Myuser " class="headimg" ng-src="{{AdminImgUrl}}">
+        </div>
+    </div>
+    <div class="modal fade" id="myPic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         style="background-color: rgba(12, 12, 12, 0.50)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="height: 95%">
+                <div class="modal-header text-center" style="height: 13%">
+                    <button style="font-size: 150%;" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">图 片 浏 览</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden" id="showpicBody">
+                    <img class="feedback-talkTransitionImg" id="mypicImg"
+                         style="width: auto;height: auto;max-height: 100%;max-width: 100%;" ng-src="{{showPic}}">
+                </div>
+                <div class="modal-footer" style="height: 13%">
+                    <div class="col-xs-12 text-center">
+                        <button type="button" ng-click="picClose(2)" class="btn btn-primary">关 闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div b-chat-box b-chat-box-data-handler="pushChatData"></div>
+<!--<chatbox></chatbox>-->

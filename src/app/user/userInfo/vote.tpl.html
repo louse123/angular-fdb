@@ -1,0 +1,42 @@
+<div  b-window-header="推举班长" class="b-header"></div>
+
+<div class="monitor-vote">
+    <div style="height: 150px;margin-top: 10px;padding: 0 10px;background-color: #f4f4f4">
+        <p style="color: #0ecbf2;font-size: 12px;font-weight: bold">班费提现,需先推举班长，由班长负责提现。</p>
+        <b style="font-size: 16px;color: #858585">竞选原则：</b><br/>
+        <b style="color:#707070;font-size: 12px ;">1、发起推举的一周内票数最高者获选；<br/>2、每月可推举一次班长，不推举则默认连任或无班长；<br/>3、当月投票结果为0时，推举班长失败，如有上任班长，则上任班长连任。<br/></b>
+    </div>
+    <div class="vote-content">
+        <div ng-show="data.monitorVote.isFinished === 1" style="background-color: #ffffff;margin-top: 3px;height: 100px;position: relative">
+            <span style="position: absolute;top: 5px;left: 5%;color: #0ecbf2;font-weight: bold">本轮投票结果</span>
+            <img style="position: absolute;" src="img/rec-monitor/yanhua1.png"/>
+            <img style="position: absolute;left: 73%;top: 7px" src="img/rec-monitor/yanhua2.png"/>
+            <div ng-if="data.monitorVote.monitor != null" style="margin-left: 25%;padding-top: 25px;width: 165px;height: 100%">
+                <img ng-src="{{downLoadBaseURL + data.monitorVote.monitor.headPic.key}}" alt="" class="img-circle pull-right" width="70" height="70"/>
+                <div class="pull-right"  style="display: inline-block;margin-right: 5px;height: 80px;text-align: right">
+                    <b style="font-size:16px;color: #ff9e04">{{data.monitorVoteNum}}票</b><br/>
+                    <b>{{data.monitorVote.monitor.name}}</b><img style="margin: -2px 0 0 2px" src="img/question_detail/user-level-{{data.monitorVote.monitor.level}}.png" alt=""/><br/>
+                    <b style="color: #ff9e04">获选班长</b><img src="img/rec-monitor/banz.png" alt=""/>
+                </div>
+            </div>
+            <div ng-if="data.monitorVote.monitor == null" style="margin-left: 25%;padding-top: 25px;width: 165px;height: 100%; text-align: center;">
+                <b style="color: #ff9e04">{{data.monitorVote.resultMsg}}</b>
+            </div>
+        </div>
+        <div class="vote-list row">
+            <div ng-repeat="vote in data.votes" class="col-xs-6 vote-item" style="margin-top: 10px; background-color: white;">
+                <img ng-src="{{downLoadBaseURL + vote.user.headPic.key}}" alt="" class="img-circle" ng-class="$index%2==0 ? 'headpic-left' : 'headpic-right'" width="60" height="60"/>
+                <div style="display: inline-block;margin-left: 5px;height: 80px" ng-class="$index%2==0 ? 'pull-left' : 'pull-right'">
+                    <b style="font-size:16px;color: #ff9e04">{{vote.voteNum}}票</b><br/>
+                    <b>{{vote.user.name}}</b><img style="margin: -2px 0 0 2px" ng-src="img/question_detail/user-level-{{vote.user.level}}.png" alt=""/><br/>
+                    <button ng-hide="$parent.hasVote || $parent.data.monitorVote.isFinished === 1" ng-disabled="btnDisable" ng-click="confirmVote($index, vote.user._id)" class="btn" style="width: 90%;padding: 0 6px;background-color:#0bcbf4;color: #ffffff;font-weight: bold">投一票</button>
+                    <button ng-show="$parent.hasVote && $parent.data.currentVoteUserId === vote.user._id" class="btn" style=" width: 90%;padding: 0 6px;background-color:#ff9e04;color: #ffffff;font-weight: bold">已&nbsp;&nbsp;&nbsp;投</button>
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
+<div style="position: fixed; z-index: 50; bottom:0; background-color: #d9d9d9; height: 60px; line-height:60px;text-align: center;width: 100%">
+    <b ng-show="data.monitorVote.isFinished === 0" style="color:#717171">还有 <b style="font-size: 20px;color:#14cef5">{{hour}}:{{minute}}:{{second}}</b> 结束投票</b>
+    <span ng-show="data.monitorVote.isFinished === 1" style="color:#717171;font-weight: 600">已结束投票</span>
+</div>

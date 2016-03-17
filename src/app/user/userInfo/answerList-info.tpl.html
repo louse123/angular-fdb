@@ -1,0 +1,42 @@
+<div  b-window-header="{{title}}" class="b-header"></div>
+
+<div id="myAnswer" window-scroll style="height:100%; overflow: scroll;margin-top: 40px;">
+    <div id="answerList" ng-if="resultList.length">
+        <ul class="list-group list-group" style="margin-bottom:0px;">
+            <li class="list-group-item" style="margin-bottom:0px;" ng-repeat="result in resultList track by $index" ng-click="openDialog('question/answer-detail.tpl.html', 'answerDetailCtrl', result.user, result.question._id)">
+                <p style="margin-bottom:5px; color: #2cd2f5;font-weight:bold;">
+                    {{result.question.subject}}
+                    <font color="#9e9e9e" style ="font-size:10px;">{{result.updateTime}}</font>
+                    <img src="img/common/right.png" style="width:16px; height:16px; float:right; margin-top:5px;"/>
+                    <img ng-if="result.isBid == 1" src="img/myAnswerList/best-m.png" style="float:right;"/>
+                    <img ng-if="result.isBid != 1 && result.question.finishAnswer == 1" src="img/myAnswerList/thanks-m.png" style="float:right;"/>
+                    <img ng-if="result.isBid != 1 && result.question.finishAnswer != 1" src="img/myAnswerList/holdon-m.png" style="float:right;"/>
+                </p>
+                <p class="text-primary" style="margin-bottom:0px;">
+
+                <div ng-repeat="c in result.content" ng-switch="c.type" style="width:85%;">
+                    <div ng-switch-when="pic">
+                        <img ng-src="{{downLoadBaseURL}}{{c.file.key}}-w200" width="160" />
+                    </div>
+                    <div ng-switch-when="audio" class="audio">
+                        <img src="img/question_detail/audio.png" ng-click="playAudio(c.file.key)" />
+                    </div>
+                    <div ng-switch-when="video">
+                        <img src="img/question_detail/v1-M.png" ng-click="playVideo(c.file.key)" width="50" />
+                    </div>
+                    <div ng-switch-default>
+                        <span ng-bind-html="toHtml(c.content)"></span>
+                    </div>
+                </div>
+                </p>
+            </li>
+        </ul>
+        <div ng-if="showTip" style="padding:25%;background-color:#eee"align="center">
+            <img src="img/myAnswerList/welldone.png" style="width:100px;display:block;"/>
+            <img src="img/myAnswerList/word.png"/>
+        </div>
+    </div>
+    <div ng-if="!resultList.length">
+        <img src="img/userInfo/noData.png" style="width:100%;height:100%"/>
+    </div>
+</div>

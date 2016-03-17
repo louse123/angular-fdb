@@ -1,0 +1,150 @@
+<div b-window-header="添加学校" class="b-header">
+</div>
+<div class="row taskList-clearpaddingLR coffers-topPaddingTitle50 text-center"
+     style="padding-bottom: 10%;height: 100%;background-color:#f5f5f6;overflow: auto;color: #737373">
+    <span class="glyphicon glyphicon-star" style="color: #ffa028;"></span>
+    没有找到你的学校,添加你的学校有惊喜哟!<span class="glyphicon glyphicon-star" style="color: #ffa028;"></span>
+
+    <div class="row tasklist_clearpaddinglr" style="line-height: 30px;">
+        <div class="col-xs-12" style="background-color: white;padding: 10px 15px 10px 15px;margin-top: 20px;">
+            <img class="col-xs-1" src="img/chooseschool/createschoolS.png"/>
+
+            <div ng-click="selectadrrs()" class="col-xs-3 text-center" style="color: #000000;font-weight: bold;">地区选择
+            </div>
+            <div class="col-xs-5">
+                {{mypro}}<span ng-if="mypro!=''">-</span>{{mycity}}
+            </div>
+            <div class="col-xs-3" data-toggle="modal" ng-click="openProCity()">
+                <span class="col-xs-9">
+                    <span ng-if="mypro!=''&&mycity!=''">已选择</span>
+                    <span ng-if="mypro==''&&mycity==''">未选择</span>
+                    <span ng-if="mycity==''&&mypro!=''">不完善</span>
+                </span>
+                <span class="col-xs-3 glyphicon glyphicon-chevron-down"
+                      style="color: #31d3f5;display: block;line-height: 23px;"></span>
+            </div>
+        </div>
+        <div class="col-xs-12" style="background-color: white;padding: 10px 15px 10px 15px;">
+            <img class="col-xs-1" src="img/chooseschool/createschool.png" style="margin-top: 5px;"/>
+
+            <div class="col-xs-3 text-center" style="line-height: 40px;;color: #000000;font-weight: bold;">学校名称</div>
+            <div class="col-xs-8">
+                <input ng-change="createInputChange()" ng-model="SchoolInput" type="text"
+                       placeholder="&nbsp;&nbsp;&nbsp;请在这里输入你学校名称" style="border: none;width: 100%;
+                background-color:#ededee;border-radius: 2px;font-size: 100%;height: 40px;">
+            </div>
+        </div>
+        <!--<div class="col-xs-12" style="background-color: white;padding: 10px 15px 10px 15px;">-->
+            <!--<div class="col-xs-10 col-xs-offset-1 text-left"-->
+                 <!--style="color: #000000;font-weight: bold;font-size: 75%;">-->
+                <!--再输入结束的<span style="font-size: 120%;color:#f87407">{{lessTime}}</span>秒后,验证名称是否符合规则-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="modal fade" id="mydaddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">地区选择模态框</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden">
+                        <div style="width: auto" ng-repeat="pro in provinceAndcityList">
+                            <div ng-if="pro.pcname.length<=4" class="col-xs-3"
+                                 ng-click="chooseCity(pro.num,pro.pcname,pro.pctype)">
+                                <div class="col-xs-10 col-xs-offset-1"
+                                     style="display: block;border-bottom: 1px solid #a0a0a0">
+                                    {{pro.pcname}}
+                                </div>
+                            </div>
+                            <div style="margin-left: 2%;" ng-if="pro.pcname.length>4&&pro.pcname.length<=8"
+                                 class="col-xs-5" ng-click="chooseCity(pro.num,pro.pcname,pro.pctype)">
+                                <div class="col-xs-10 "
+                                     style="display: block;border-bottom: 1px solid #a0a0a0">
+                                    {{pro.pcname}}
+                                </div>
+                            </div>
+                            <div style="margin-left: 2%" ng-if="pro.pcname.length>8" class="col-xs-7"
+                                 ng-click="chooseCity(pro.num,pro.pcname,pro.pctype)">
+                                <div class="col-xs-10 "
+                                     style="display: block;border-bottom: 1px solid #a0a0a0">
+                                    {{pro.pcname}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-xs-6 text-left">
+                            {{mypro}}--{{mycity}}
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button type="button" ng-click="chosePro()" class="btn btn-primary">重置</button>
+                            <button type="button" ng-click="selectadrrs()" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="mySchoolInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button style="font-size: 150%;" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">学校创建信息</h4>
+                    </div>
+                    <div class="modal-body" style="overflow: hidden">
+                        <div class="col-xs-12 text-center">
+                            <div class="col-xs-4">名称:</div>
+                            <!--<div class="col-xs-7" ng-if="endResult" style="border: 3px solid #23f623">-->
+                                <!--{{SchoolInput}}(名称可用)-->
+                            <!--</div>-->
+                            <div class="col-xs-7" ng-if="!endResult" style="border: 3px solid #f62323">
+                                {{SchoolInput}}(已经存在啦!)
+                            </div>
+                            <div class="col-xs-4">省:</div>
+                            <div class="col-xs-7">{{mypro}}</div>
+                            <div class="col-xs-4">市:</div>
+                            <div class="col-xs-7">{{mycity}}</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-xs-12 text-center">
+                            <button type="button" ng-click="schoolInfofun(2)" class="btn btn-primary">写错啦</button>
+                            <!--<button type="button" ng-click="schoolInfofun(1)" class="btn btn-primary col-xs-offset-1">-->
+                                <!--确认-->
+                            <!--</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="color: #737373;">
+            <h3 style="margin-top: 20px;;margin-bottom: 20px;">奖励说明</h3>
+
+            <p class="col-xs-10 col-xs-offset-1">
+                <span class="col-xs-1" style="font-size: 110%;font-weight: bold;">1.</span>
+                <span class="col-xs-11" style="font-size: 90%">
+                    一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</span>
+            </p>
+
+            <p class="col-xs-10 col-xs-offset-1">
+                <span class="col-xs-1" style="font-size: 110%;font-weight: bold;">2.</span>
+                <span class="col-xs-11" style="font-size: 90%">
+                    一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</span>
+            </p>
+
+            <p class="col-xs-10 col-xs-offset-1">
+                <span class="col-xs-1" style="font-size: 110%;font-weight: bold;">3.</span>
+                <span class="col-xs-11" style="font-size: 90%">
+                    一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</span>
+            </p>
+
+        </div>
+    </div>
+</div>
+<div class="coffers-bottomButton text-center" ng-click="sendSchool();"
+     ng-class="{true: 'drawmoney-btnActive', false: 'drawmoney-btnInActive'}[endResult]"
+     style="line-height: 45px;font-size: 130%;font-weight: bold;" ng-disabled="!endResult">
+    确&nbsp;认&nbsp;提&nbsp;交
+</div>

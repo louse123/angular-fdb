@@ -1,0 +1,35 @@
+<div class="b-chat-box">
+    <div class="b-chat-box-menu" ng-show="showMenu">
+        <div class="b-chat-box-menu-item">
+            <span class="b-chat-box-btn b-icon-photo" ng-click="getMedia(0)">拍照</span>
+        </div>
+        <div class="b-chat-box-menu-item">
+            <span class="b-chat-box-btn b-icon-video" ng-click="getMedia(1)">视频</span>
+        </div>
+    </div>
+    <div class="b-chat-box-form">
+        <div class="b-chat-box-left">
+            <span class="b-chat-box-btn b-icon-voice" ng-show="textMode" ng-click="toVoiceMode(true)"></span>
+            <span class="b-chat-box-btn b-icon-keyboard" ng-show="!textMode" ng-click="toVoiceMode(false)"></span>
+        </div>
+        <div class="b-chat-box-center" ng-show="textMode">
+            <input type="text" class="form-control" placeholder="在这里输入点儿什么吧" ng-model="text" ng-focus="toEmotionMode(false)">
+
+            <div class="b-chat-box-btn-emotion">
+                <span class="b-chat-box-btn b-icon-emotion" ng-click="toEmotionMode(true)"></span>
+            </div>
+        </div>
+        <div class="b-chat-box-center" ng-show="!textMode">
+            <button id="press-talk" type="button" class="btn btn-default btn-block" hm-press>按住说话
+            </button>
+        </div>
+        <div class="b-chat-box-right">
+            <span class="b-chat-box-btn b-icon-plus" ng-show="!showSend()" ng-click="openMenu()"></span>
+            <span class="b-chat-box-btn b-icon-send" ng-show="showSend()" ng-click="sendText()"></span>
+        </div>
+    </div>
+    <div class="b-chat-box-emotion-container" ng-show="showEmotion">
+        <img ng-repeat="(label, path) in emotions" class="b-chat-box-emotion" ng-src="{{path}}" ng-if="$index < emotionPageSize" ng-click="selectEmotion(label)" />
+        <img class="b-chat-box-emotion" src="img/chat-box/emotion/delete.png" ng-click="removeEmotion()" />
+    </div>
+</div>

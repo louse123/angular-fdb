@@ -1,0 +1,84 @@
+
+<div b-window-header title="小强的回答">
+       <span ng-if="answerQ && isQUser" chat-adopt class="b-icon-container-right" style="color: #ffffff;margin-right: 10px;">采纳回答</span>
+</div>
+<div class="container">
+    <div style="width: 100%;margin-top: 5%">
+        <div style="text-align: center;margin-top: 55px">
+            <img src="" alt=""/>
+            <span ng-if="questionCreateTime.Date && questionCreateTime.amPm" style="font-size: 10px;color: #9d9b9b">{{questionCreateTime.Date}} {{questionCreateTime.amPm}} {{ questionCreateTime.createDate | date: 'h:mm'}}</span>
+            <span ng-if="!questionCreateTime.Date" style="font-size: 10px;color: #9d9b9b">{{ questionCreateTime.createDate | date: 'yyyy年M月d日 HH:mm' }}</span>
+        </div>
+        <div ng-repeat="item in answerDetail.question.content" style="margin-top: 4%;width: 100%;">
+            <div class="col-xs-2" style="padding-left: 0;position: relative">
+                <!--<img ng-src="{{downLoadBaseURL+answerDetail.question.user.headPic.key}}" alt="" class="img-circle" width="40" height="40"/>-->
+                <img ng-src="http://7xjr7k.dl1.z0.glb.clouddn.com/pic/ZzQtsBkQvPqnd7UdvFhn5nVBbKpUtKMX.jpg-w200" alt="" class="img-circle" width="40" height="40"/>
+                <div class="answer-apply-tooltip-left"></div>
+            </div>
+            <div ng-if="item.type == 'text'" class="answer-apply-question-user" style="padding: 0 15px;">
+                <p style="margin-top: 10px"><span style="color: #2bd2f4">问: </span>{{item.content}}</p>
+            </div>
+            <div  ng-if="item.type == 'pic'" class="answer-apply-question-user" style="padding: 8px;">
+                <img img-up style="border-radius: 2px" src="http://7xjr7k.dl1.z0.glb.clouddn.com/pic/ZzQtsBkQvPqnd7UdvFhn5nVBbKpUtKMX.jpg-w200"  width="200" height="100" alt="{{item.file.key}}"/>
+            </div>
+            <div ng-if="item.type == 'video'" class="answer-apply-question-user" style="padding: 8px;">
+                <img style="border-radius: 2px" src="../image/chatBox/face1.png" ng-click="playVideo(downLoadBaseURL+item.file.key)"  alt="{{item.file.key}}"/>
+            </div>
+            <div ng-if="item.type == 'radio'" class="answer-apply-question-user" style="padding: 8px;">
+                <img style="border-radius: 2px" src="../image/chatBox/face2.png" ng-click="playAudio(downLoadBaseURL+item.file.key)"  alt="{{item.file.key}}"/>
+            </div>
+        </div>
+    </div>
+    <div ng-if="answerDetail.content" style="width: 100%;margin-top: 5%">
+        <div style="text-align: center;margin-top: 30px">
+            <img src="" alt=""/>
+            <span ng-if="answerCreateTime.Date && answerCreateTime.amPm" style="font-size: 10px;color: #9d9b9b">{{answerCreateTime.Date}} {{answerCreateTime.amPm}} {{ answerCreateTime.createDate | date: 'h:mm'}}</span>
+            <span ng-if="!answerCreateTime.Date" style="font-size: 10px;color: #9d9b9b">{{ answerCreateTime.createDate | date: 'yyyy年M月d日 HH:mm' }}</span>
+        </div>
+        <div ng-repeat="item in answerDetail.content" style="margin-top: 4%;width: 100%;">
+            <div  ng-if="qUser == item.user._id">
+                <div class="col-xs-2 " style="padding-left: 0;position: relative">
+                    <img  ng-src="http://7xjr7k.dl1.z0.glb.clouddn.com/pic/ZzQtsBkQvPqnd7UdvFhn5nVBbKpUtKMX.jpg" alt="" class="img-circle" width="40" height="40"/>
+                    <div class="answer-apply-tooltip-left "></div>
+                </div>
+                <div ng-if="item.type == 'text'" class=" answer-apply-question-user" style="padding: 0 15px;">
+                    <p  style="margin-top: 10px;color: #000000"><span style="color: #fe9614"></span>{{item.content}}</p>
+                </div>
+                <div ng-if="item.type == 'pic'" class="answer-apply-question-user" style="padding: 8px;">
+                    <img style="border-radius: 2px" ng-src="{{downLoadBaseURL+item.file.key}}"  width="200" height="100" alt="{{item.file.key}}"/>
+                </div>
+                <div ng-if="item.type == 'video'" class="answer-apply-question-user" style="padding: 8px;">
+                    <img style="border-radius: 2px" src="../image/chatBox/face1.png" ng-click="playVideo(downLoadBaseURL+item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div ng-if="item.type == 'radio'" class="answer-apply-question-user" style="padding: 8px;">
+                    <img style="border-radius: 2px" src="../image/chatBox/face2.png" ng-click="playAudio(downLoadBaseURL+item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div ng-if="qUser != item.user._id">
+                <div class="col-xs-2 pull-right" style="padding-right: 0;position: relative">
+                    <!--七牛网图片<img  ng-src="{{downLoadBaseURL+item.user.headPic.key}}" alt="" class="img-circle" width="40" height="40"/>-->
+                    <div class="pull-right"><img  src="img/question_deital/ameng.png" alt="" class="img-circle" width="40" height="40"/></div>
+                    <div class="answer-apply-tooltip-right "></div>
+                </div>
+                <div ng-if="item.type == 'text'" class=" answer-apply-answer-user pull-right" style="padding: 0 15px;">
+                    <p  style="margin-top: 10px;">{{item.content}}</p>
+                </div>
+                <div ng-if="item.type == 'pic'" class="answer-apply-answer-user pull-right" style="padding: 0 15px;">
+                    <img style="border-radius: 2px" ng-src="{{downLoadBaseURL+item.file.key}}"  width="200" height="100" alt="{{item.file.key}}"/>
+                </div>
+                <div ng-if="item.type == 'video'" class="answer-apply-answer-user pull-right" style="padding: 0 15px;">
+                    <img style="border-radius: 2px" src="../image/chatBox/face1.png" ng-click="playVideo(downLoadBaseURL+item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div ng-if="item.type == 'radio'" class="answer-apply-answer-user pull-right" style="padding: 0 15px;">
+                    <img style="border-radius: 2px" src="../image/chatBox/face2.png" ng-click="playAudio(downLoadBaseURL+item.file.key)"   alt="图片裂了"/>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="answerQ || isQUser" b-chat-box></div>
+
+
+

@@ -1,0 +1,73 @@
+<div  b-window-header="{{title}}" class="b-header"></div>
+
+<div id="myQuestion" window-scroll style="height:100%; overflow: auto;margin-top: 40px;">
+    <div id="questionList" ng-if="resultList.length">
+        <ul class="list-group list-group" style="margin-bottom:0px;">
+            <li class="list-group-item" style=" padding-bottom:5%; margin-bottom:0px;" ng-repeat="result in resultList track by $index" ng-click="openDialog('question/detail.tpl.html', 'detailCtrl', result.question._id)">
+                <div ng-class="{'ask-label':result.question.content[0].type =='text'}" style="color:#2bd2f4;clear:both;">提问: </span></div>
+                <font color="#7e7e7e" style ="font-size:10px; float: right">{{result.updateTime}}</font>
+                <div ng-repeat="c in result.question.content" ng-switch="c.type" style="width:85%;">
+                    <div ng-switch-when="pic">
+                        <img ng-src="{{downLoadBaseURL}}{{c.file.key}}-w200" width="160" />
+                    </div>
+                    <div ng-switch-when="audio" class="audio">
+                        <img src="img/question_detail/audio.png" ng-click="playAudio(c.file.key)" />
+                    </div>
+                    <div ng-switch-when="video">
+                        <img src="img/question_detail/v1-M.png" ng-click="playVideo(c.file.key)" width="50" />
+                    </div>
+                    <div ng-switch-default>
+                        <span ng-bind-html="toHtml(c.content)"></span>
+                    </div>
+                </div>
+
+
+                <div style="padding:1em 0; font-size: 0.5em;">
+                    <div ng-if="result.question.dataStatus == 1" style="height:0px;">
+                        <img ng-if="result.question.finishAnswer == 1" src="img/myQuestionList/0-1.png"/>
+                        <img ng-if="result.question.finishAnswer != 1" src="img/myQuestionList/0-3.png"/>
+                        <font color ="#999999">{{result.question.finishAnswer == 1?'已解决':'未解决'}}</font>
+                    </div>
+                    <div ng-if="result.question.dataStatus == 2" style="height:0px;">
+                        <img src="img/myQuestionList/0-3.png"/>
+                        <font>提问超时，系统已经将奖金分给大家了！</font>
+                    </div>
+                    <div ng-if="result.question.dataStatus == 0" style="height:0px;">
+                        <img src="img/myQuestionList/0-3.png"/>
+                        <font>您已取消了提问</font>
+                    </div>
+                    <div ng-if="result.question.finishAnswer == 1" style="float:right">
+                        <img src="img/myQuestionList/0-2.png"/>
+                        <font color ="#999999">已采纳最佳答案</font>
+                    </div>
+                    <div ng-if="result.question.dataStatus == 2" style="float:right">
+                        <img src="img/myQuestionList/0-5.png"/>
+                        <font color ="#999999">无最佳答案</font>
+                    </div>
+                    <div ng-if="result.question.finishAnswer != 1" style="float:right">
+                        <div ng-if="result.answerCount == 0 && result.question.dataStatus == 1">
+                            <img src="img/myQuestionList/0-5.png"/>
+                            <font color ="#999999">暂无学霸回答</font>
+                        </div>
+                        <div ng-if="result.answerCount == 0 && result.question.dataStatus == 0">
+                            <img src="img/myQuestionList/0-5.png"/>
+                            <font color ="#999999">未采纳最佳答案</font>
+                        </div>
+                        <div ng-if="result.answerCount != 0">
+                            <img src="img/myQuestionList/0-4.png"/>
+                            <font color ="#999999">已有{{result.answerCount}}个学霸回答
+                                <font color="#ff8871" style="font-weight: bold;font-size:18px;">{{result.answerCount}}</font>答案</font>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+        <div ng-if="showTip" style="padding:5%;background-color:#eeecec"align="center">
+            <img src="img/myQuestionList/pic-01-m.png"/>
+        </div>
+    </div>
+    <div ng-if="!resultList.length">
+        <img src="img/userInfo/noData.png" style="width:100%;height:100%"/>
+    </div>
+</div>

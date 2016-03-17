@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script type="text/javascript" src="vendor/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="vendor/ng-dialog/css/ngDialog.css"/>
+    <link rel="stylesheet" type="text/css" href="vendor/ng-dialog/css/ngDialog-theme-plain.css"/>
+    <link rel="stylesheet" href="vendor/material-date-picker/build/styles/mbdatepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="<%= pkg.name%>.css"/>
+</head>
+<body ng-app="app" ng-controller="AppCtrl">
+
+<div id="f-header" ng-include="'common/header.tpl.html'"></div>
+<div id="f-container"><div class="view" ng-view></div></div>
+<div id="f-footer"ng-include="'common/footer.tpl.html'"></div>
+
+<!--angularjs datePicker在ngdialog下无法正常使用，使用前要预加载 -->
+<mb-datepicker element-id='date0'
+               input-class="testClass"
+               input-name="testName"
+               arrows="arrows"
+               calendar-header="header"
+               date="date"
+               date-format="YYYY-MM-DD"
+               style="display: none"></mb-datepicker >
+<script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="vendor/moment/moment.js"></script>
+<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="vendor/iscroll.js"></script>
+<script type="text/javascript" src="vendor/hammer.js"></script>
+<script type="text/javascript" src="vendor/angular/angular.js"></script>
+<script type="text/javascript" src="vendor/api/api.js"></script>
+<script type="text/javascript" src="vendor/common.js"></script>
+<script type="text/javascript" src="<%= pkg.name%>.js"></script>
+</body>
+</html>

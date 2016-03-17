@@ -1,0 +1,95 @@
+/**
+ *
+ * 下拉刷新样式
+ *
+ */
+#pullDown{
+  background:#fff;
+  height:30px;
+  line-height:30px;
+  padding:5px 10px;
+  font-weight:bold;
+  font-size:14px;
+  color:#888;
+}
+#pullDown .pullDownIcon{
+  display:block;float:left;
+  width:40px; height:40px;
+  margin:-5px 0 0 20%;
+  background:url(http://statics.webkfa.com/img/pull-icon@2x.png) 0 0 no-repeat;
+  -webkit-background-size:40px 80px; background-size:40px 80px;
+  -webkit-transition-property:-webkit-transform;
+  -webkit-transition-duration:250ms;
+}
+#pullDown .pullDownIcon {
+  -webkit-transform:rotate(0deg) translateZ(0);
+}
+#pullDown.flip .pullDownIcon {
+  -webkit-transform:rotate(-180deg) translateZ(0);
+}
+#pullDown.loading .pullDownIcon{
+  background-position:0 100%;
+  -webkit-transform:rotate(0deg) translateZ(0);
+  -webkit-transition-duration:0ms;
+
+  -webkit-animation-name:loading;
+  -webkit-animation-duration:2s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:linear;
+}
+
+@-webkit-keyframes loading {
+  from { -webkit-transform:rotate(0deg) translateZ(0); }
+  to { -webkit-transform:rotate(360deg) translateZ(0); }
+}
+
+//导航部分
+.b-qlist-nav{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 40px;
+  background-color: #3a81c0;
+  width: 100%;
+  position:fixed;
+  top:40px;
+  div{
+    width:350%;
+    height:40px;
+    span{
+      display: inline-block;
+      color: #ffffff;
+      width: 80px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+  }
+}
+.b-subject-selected{
+  background-color: #31d4f5;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.user-report input[type="radio"]{
+  height: 20px;
+  width: 20px;
+  background-color: #cccccc;
+  position: relative;
+  top:-2px;
+}
+
+.user-report input[type="radio"]:checked:after{
+  content: ' ';
+  width: 16px;
+  height: 16px;
+  top:1px;
+  left: 1px;
+  border-radius: 32px;
+  position: absolute;
+  background-color: #CD5C5C;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+  text-shadow: 0px;
+}
+
+
